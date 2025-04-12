@@ -5,13 +5,7 @@ window.addEventListener("load", () => {
 
   startBtn.onclick = () => {
     game.start();
+    startBtn.blur();
     startScreen.style.display = "none";
   };
-
-  pause.onclick = () => {
-    pause.blur();
-    game.togglePause();
-  };
-  pause.ontouchstart = () => game.togglePause();
-  resume.onclick = () => game.togglePause();
 });
