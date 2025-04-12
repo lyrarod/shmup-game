@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <script src="main.js" defer type="module"></script>
+    <title>Shmup Game</title>
+  </head>
+  <body>
+    <main>
+      <div id="game">
+        <div id="screen">
+          <canvas id="canvas"></canvas>
+          <div id="startScreen">
+            <span style="font-size: 3rem">👾</span>
+            <h1>Shmup Game !</h1>
+            <button id="startBtn">Start</button>
+          </div>
+
+          <div id="pauseScreen">
+            <span>👀</span>
+            <h1>Game Paused</h1>
+            <p>Press P or Esc to resume</p>
+            <button id="resume">▶</button>
+          </div>
+        </div>
+
+        <div id="hud">
+          <p>
+            <span id="score"></span>
+            Score
+          </p>
+
+          <div>
+            <div
+              style="
+                display: flex;
+                gap: 0.25rem;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <span id="wave"></span>/<span id="waves"></span>
+            </div>
+            Waves
+          </div>
+
+          <p>
+            <span id="lives"></span>
+            Lives
+          </p>
+
+          <button id="pause">❚❚</button>
+        </div>
+
+        <div id="buttons">
+          <button id="left">Left</button>
+          <button id="right">Right</button>
+          <button id="up">Up</button>
+          <button id="down">Down</button>
+          <button id="fire">Fire</button>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
