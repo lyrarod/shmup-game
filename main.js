@@ -8,4 +8,9 @@ window.addEventListener("load", () => {
     startBtn.blur();
     startScreen.style.display = "none";
   };
+
+  pause.onclick = () => {
+    pause.blur();
+    game.togglePause();
+  };
 });

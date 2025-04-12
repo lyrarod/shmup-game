@@ -48,15 +48,6 @@ export class Keyboard {
       delete this.keyPressed[code];
     });
 
-    pause.onclick = () => {
-      pause.blur();
-      game.togglePause();
-    };
-    resume.onclick = () => {
-      resume.blur();
-      game.togglePause();
-    };
-
     left.addEventListener("touchstart", () => {
       this.keyPressed.ArrowLeft = true;
     });
