@@ -46,7 +46,6 @@ export class Player {
       this.game.livesHud.innerText = this.lives;
       this.x = this.game.width * 0.5 - this.width * 0.5;
       this.y = this.game.height;
-      console.log("player took damage:", this.game.player.lives);
     }
   }
 

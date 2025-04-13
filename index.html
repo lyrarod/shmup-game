@@ -27,10 +27,12 @@
 
         <div id="hud">
           <div class="hud-item">
-            <p>
-              <span id="score"></span>
-              Score
-            </p>
+            <div
+              style="display: flex; flex-direction: column; align-items: center"
+            >
+              <strong id="score"></strong>
+              <span style="font-size: 0.75rem; font-weight: 700">Score</span>
+            </div>
 
             <div>
               <div
@@ -41,15 +43,19 @@
                   align-items: center;
                 "
               >
-                <span id="wave"></span>/<span id="waves"></span>
+                <strong id="wave"></strong>
+                <strong>/</strong>
+                <strong id="waves"></strong>
               </div>
-              Waves
+              <span style="font-size: 0.75rem; font-weight: 700">Waves</span>
             </div>
 
-            <p>
-              <span id="lives"></span>
-              Lives
-            </p>
+            <div
+              style="display: flex; flex-direction: column; align-items: center"
+            >
+              <strong id="lives"></strong>
+              <span style="font-size: 0.75rem; font-weight: 700">Lives</span>
+            </div>
 
             <button id="pause">❚❚</button>
           </div>
