@@ -10,8 +10,8 @@ export class Game {
   constructor() {
     this.canvas = document.getElementById("canvas");
     this.ctx = this.canvas.getContext("2d");
-    this.width = this.canvas.width = 600;
-    this.height = this.canvas.height = 800;
+    this.width = this.canvas.width = 700;
+    this.height = this.canvas.height = 900;
 
     this.waves = [];
     this.waveIndex = 0;

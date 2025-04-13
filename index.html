@@ -55,10 +55,21 @@
           </div>
 
           <div id="buttons">
-            <button id="left">◀</button>
-            <button id="right">▶</button>
-            <button id="up">▲</button>
-            <button id="down">▼</button>
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                gap: 0.3rem;
+                align-items: center;
+              "
+            >
+              <button id="up">▲</button>
+              <div style="display: flex; gap: 3rem">
+                <button id="left">◀</button>
+                <button id="right">▶</button>
+              </div>
+              <button id="down">▼</button>
+            </div>
             <button id="fire">⊹</button>
           </div>
         </div>
