@@ -11,7 +11,7 @@ export class Game {
     this.canvas = document.getElementById("canvas");
     this.ctx = this.canvas.getContext("2d");
     this.width = this.canvas.width = 768;
-    this.height = this.canvas.height = 900;
+    this.height = this.canvas.height = 1016;
 
     this.waves = [];
     this.waveIndex = 0;
@@ -62,26 +62,26 @@ export class Game {
       {
         title: "v1.0-full-song",
         audio: new Audio("./assets/audio/v1.0-full-song.ogg"),
-        volume: 0.5,
+        volume: 0.25,
       },
       {
         title: "Brinstar Overgrown with Vegetation Area",
         audio: new Audio(
           "./assets/audio/05.-Brinstar-Overgrown-with-Vegetation-Area.ogg"
         ),
-        volume: 1,
+        volume: 0.5,
       },
       {
         title: "Theme of Samus Aran - Galactic Warrior",
         audio: new Audio(
           "./assets/audio/08.-Theme-of-Samus-Aran-_-Galactic-Warrior.ogg"
         ),
-        volume: 1,
+        volume: 0.5,
       },
       {
         title: "Theme of Super Metroid",
         audio: new Audio("./assets/audio/02.-Theme-of-Super-Metroid.ogg"),
-        volume: 1,
+        volume: 0.5,
       },
     ];
 
