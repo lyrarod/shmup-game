@@ -31,6 +31,10 @@ export class Player {
     // console.log(this.exhaust.frameX);
 
     this.exhaust.sprite.src = "./assets/turbo_flight.png";
+
+    this.sounds = {
+      shoot: new Audio("./assets/audio/LASRGun_Classic_Blaster_A_Fire_03.ogg"),
+    };
   }
 
   reset() {
@@ -60,9 +64,9 @@ export class Player {
 
     this.game.bullet.addBullet();
 
-    this.game.sounds.shoot.currentTime = 0;
-    this.game.sounds.shoot.volume = 0.2;
-    this.game.sounds.shoot.play();
+    this.sounds.shoot.currentTime = 0;
+    this.sounds.shoot.volume = 0.25;
+    this.sounds.shoot.play();
   }
 
   render() {

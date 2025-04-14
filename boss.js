@@ -34,6 +34,11 @@ export class Boss {
         this.bosses.splice(index, 1);
       }
 
+      if (this.game.collisionDetection(boss, this.game.player)) {
+        this.game.player.takeDamage(1);
+        return null;
+      }
+
       if (this.bosses.length === 0) {
         this.game.waves[this.game.waveIndex].complete = true;
         this.game.waves[this.game.waveIndex].boss["complete"] = true;
@@ -44,6 +49,7 @@ export class Boss {
             this.game.waves.length - this.game.waveIndex - 1
           } waves left.`
         );
+        return null;
       }
     });
   }

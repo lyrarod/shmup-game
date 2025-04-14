@@ -22,14 +22,14 @@ export class Planet {
     );
     this.indexFrameX = 0;
     this.frameY = 0;
-    this.maxFrameY = 0;
+    this.maxFrameY = config.maxFrameY ?? 0;
     this.sprite = new Image();
     this.frameTimer = 0;
     this.frameInterval = config.frameInterval ?? 1000 / 60;
     this.speed = 0.025;
     this.directionX = Math.random() < 0.5 ? -1 : 1;
 
-    this.sprite.src = `./assets/planets/${config.sprite ?? "planet.png"}`;
+    this.sprite.src = `./assets/planets/${config.sprite ?? ""}`;
 
     this.position = {
       x: config.position?.x ?? 0,
@@ -69,35 +69,24 @@ export class Planet {
           y: 200,
         },
         frameX: 6,
-        frameInterval: 20000,
+        frameInterval: 30000,
       })
     );
 
     this.add(
       new Planet(this.game, {
-        sprite: "galaxy.png",
-        width: 300,
-        height: 300,
+        sprite: "fUIXTK.png",
+        width: 256,
+        height: 256,
         position: {
-          x: -60,
-          y: this.game.height - 270,
+          x: -64,
+          y: 120,
         },
-        frameInterval: 60,
+        frameX: 8,
+        maxFrameY: 3,
+        frameInterval: 260,
       })
     );
-
-    // this.add(
-    //   new Planet(this.game, {
-    //     sprite: "black_hole.png",
-    //     width: 326,
-    //     height: 326,
-    //     position: {
-    //       x: this.game.width * 0.5 - this.width * 0.5 - 50,
-    //       y: this.game.height * 0.5 - this.height * 0.5 - 100,
-    //     },
-    //     frameInterval: 120,
-    //   })
-    // );
 
     // console.log(this.planets);
   }

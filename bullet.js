@@ -84,13 +84,6 @@ export class Bullet {
       bullet.hitbox.y =
         bullet.y + bullet.height * 0.5 - bullet.hitbox.height * 0.1;
 
-      // bullet.hitbox = {
-      //   width: 12,
-      //   height: 70,
-      //   x: bullet.x + bullet.width * 0.5 - bullet.hitbox.width * 0.65,
-      //   y: bullet.y + bullet.height * 0.5 - bullet.hitbox.height * 0.1,
-      // };
-
       this.game.enemy.enemies.forEach((enemy) => {
         if (
           this.game.collisionDetection(enemy.hitbox, bullet.hitbox) &&

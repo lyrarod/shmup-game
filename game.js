@@ -54,33 +54,25 @@ export class Game {
     this.frame = 0;
     this.lastTime = 0;
 
-    this.sounds = {
-      shoot: new Audio("./assets/audio/LASRGun_Classic_Blaster_A_Fire_03.ogg"),
-    };
-
     this.musics = [
       {
-        title: "v1.0-full-song",
-        audio: new Audio("./assets/audio/v1.0-full-song.ogg"),
+        title: "Ryu's Theme",
+        audio: new Audio("./assets/audio/Ryu-Theme.ogg"),
         volume: 0.25,
       },
       {
-        title: "Brinstar Overgrown with Vegetation Area",
-        audio: new Audio(
-          "./assets/audio/05.-Brinstar-Overgrown-with-Vegetation-Area.ogg"
-        ),
-        volume: 0.5,
+        title: "Top Gear: Las Vegas",
+        audio: new Audio("./assets/audio/Top-Gear-Las-Vegas.ogg"),
+        volume: 0.25,
       },
       {
-        title: "Theme of Samus Aran - Galactic Warrior",
-        audio: new Audio(
-          "./assets/audio/08.-Theme-of-Samus-Aran-_-Galactic-Warrior.ogg"
-        ),
-        volume: 0.5,
+        title: "The King of Fighters 2000: Heroes Team",
+        audio: new Audio("./assets/audio/KOF2k-Heroes-Team.ogg"),
+        volume: 0.25,
       },
       {
         title: "Theme of Super Metroid",
-        audio: new Audio("./assets/audio/02.-Theme-of-Super-Metroid.ogg"),
+        audio: new Audio("./assets/audio/Theme-of-Super-Metroid.ogg"),
         volume: 0.5,
       },
     ];
@@ -90,16 +82,15 @@ export class Game {
 
     this.musics.map((music, i) => {
       music.audio.addEventListener("play", () => {
-        console.clear();
         console.log(music);
       });
 
       music.audio.addEventListener("ended", () => {
         this.musicIndex = i < this.musics.length - 1 ? i + 1 : 0;
-        const currentMusic = this.musics.at(this.musicIndex);
-        currentMusic.audio.currentTime = 0;
-        currentMusic.audio.volume = currentMusic.volume;
-        currentMusic.audio.play();
+        this.currentMusic = this.musics.at(this.musicIndex);
+        this.currentMusic.audio.currentTime = 0;
+        this.currentMusic.audio.volume = this.currentMusic.volume;
+        this.currentMusic.audio.play();
       });
     });
 
