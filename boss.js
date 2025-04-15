@@ -14,6 +14,10 @@ export class Boss {
   takeDamage(damage) {
     this.energy -= damage;
     this.y -= this.height * 0.1;
+    if (this.energy < 1) {
+      this.game.score += damage;
+      this.game.scoreHud.innerText = Number(this.game.score.toFixed(1));
+    }
   }
 
   render() {

@@ -24,9 +24,10 @@ export class Enemy {
   takeDamage(damage) {
     this.energy -= damage;
     this.y -= this.height * 0.1;
-
-    this.game.score += damage * 0.1;
-    this.game.scoreHud.innerText = Number(this.game.score.toFixed(1));
+    if (this.energy < 1) {
+      this.game.score += damage * 0.1;
+      this.game.scoreHud.innerText = Number(this.game.score.toFixed(1));
+    }
   }
 
   render() {
@@ -36,7 +37,7 @@ export class Enemy {
     this.game.ctx.fillStyle = "lightgray";
     this.game.ctx.fillRect(this.x, this.y - 10, this.width, 5);
 
-    this.game.ctx.fillStyle = "#0f0";
+    this.game.ctx.fillStyle = "#ff0";
     if (this.energy <= this.maxEnergy * 0.1 || this.energy <= 1) {
       this.game.ctx.fillStyle = "#f00";
     }

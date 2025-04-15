@@ -16,10 +16,9 @@ export class Planet {
     this.height = config.height ?? 256;
     this.x = null;
     this.y = null;
-    this.frameX = Array.from(
-      { length: config.frameX ?? 50 },
-      (_, index) => index
-    );
+    this.frameX = Array.isArray(config.frameX)
+      ? config.frameX
+      : Array.from({ length: config.frameX }, (_, index) => index);
     this.indexFrameX = 0;
     this.frameY = 0;
     this.maxFrameY = config.maxFrameY ?? 0;
@@ -55,7 +54,7 @@ export class Planet {
           x: this.game.width - 512 * 0.6,
           y: -512 * 0.45,
         },
-        frameX: 1,
+        frameX: [2],
       })
     );
 
@@ -68,8 +67,8 @@ export class Planet {
           x: this.game.width * 0.5 - 128 * 0.5,
           y: 200,
         },
-        frameX: 6,
-        frameInterval: 30000,
+        frameX: [0, 1, 2, 3, 4, 5, 4, 3, 2, 1],
+        frameInterval: 20000,
       })
     );
 
