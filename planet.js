@@ -73,21 +73,6 @@ export class Planet {
       })
     );
 
-    this.add(
-      new Planet(this.game, {
-        sprite: "fUIXTK.png",
-        width: 256,
-        height: 256,
-        position: {
-          x: -64,
-          y: 120,
-        },
-        frameX: 8,
-        maxFrameY: 3,
-        frameInterval: 260,
-      })
-    );
-
     // console.log(this.planets);
   }
 
