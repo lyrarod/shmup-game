@@ -29,7 +29,7 @@ export class Planet {
     this.speed = 0.025;
     this.directionX = Math.random() < 0.5 ? -1 : 1;
 
-    this.sprite.src = `./assets/planets/${config.sprite ?? ""}`;
+    this.sprite.src = `./assets/planets/${config.sprite ?? "spritesheet.png"}`;
 
     this.position = {
       x: config.position?.x ?? 0,
