@@ -8,6 +8,7 @@ export class Planet {
       sprite: null,
       frameX: null,
       frameInterval: null,
+      maxFrameY: null,
     }
   ) {
     this.game = game;
@@ -38,14 +39,10 @@ export class Planet {
     this.planets = [];
   }
 
-  add(planet) {
-    this.planets.push(planet);
-  }
-
   create() {
     this.planets = [];
 
-    this.add(
+    this.planets.push(
       new Planet(this.game, {
         sprite: "spritesheet.png",
         width: 512,
@@ -58,7 +55,7 @@ export class Planet {
       })
     );
 
-    this.add(
+    this.planets.push(
       new Planet(this.game, {
         sprite: "Earth-128x128.png",
         width: 128,
@@ -67,7 +64,7 @@ export class Planet {
           x: this.game.width * 0.5 - 128 * 0.5,
           y: 200,
         },
-        frameX: [0, 1, 2, 3, 4, 5, 4, 3, 2, 1],
+        frameX: [1, 2, 3, 4, 5, 4, 3, 2, 1, 0],
         frameInterval: 20000,
       })
     );

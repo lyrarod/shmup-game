@@ -157,7 +157,7 @@ main {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 #controls button:active {
-  transform: scale(0.95);
+  transform: scale(0.9);
 }
 #controls #pause:active {
   transform: scale(1);

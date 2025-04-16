@@ -18,7 +18,7 @@ export class Bullet {
     this.indexFrameX = 0;
     this.frameY = 0;
     this.frameTimer = 0;
-    this.frameInterval = 90;
+    this.frameInterval = 60;
 
     this.hitbox = {
       width: 0,
@@ -50,7 +50,7 @@ export class Bullet {
 
     this.game.ctx.drawImage(
       this.sprite,
-      this.frameX[this.indexFrameX] * this.width,
+      this.frameX.at(this.indexFrameX) * this.width,
       this.frameY * this.height,
       this.width,
       this.height,
