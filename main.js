@@ -1,8 +1,7 @@
 import { Game } from "./game.js";
+const game = new Game();
 
 window.addEventListener("load", () => {
-  const game = new Game();
-
   startBtn.onclick = () => {
     game.start();
     startBtn.blur();

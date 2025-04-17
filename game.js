@@ -77,7 +77,7 @@ export class Game {
       },
     ];
 
-    this.musicIndex = null;
+    this.musicsIndex = null;
     this.currentMusic = null;
 
     this.musics.map((music, i) => {
@@ -86,8 +86,8 @@ export class Game {
       });
 
       music.audio.addEventListener("ended", () => {
-        this.musicIndex = i < this.musics.length - 1 ? i + 1 : 0;
-        this.currentMusic = this.musics.at(this.musicIndex);
+        this.musicsIndex = i < this.musics.length - 1 ? i + 1 : 0;
+        this.currentMusic = this.musics.at(this.musicsIndex);
         this.currentMusic.audio.currentTime = 0;
         this.currentMusic.audio.volume = this.currentMusic.volume;
         this.currentMusic.audio.play();
@@ -117,14 +117,14 @@ export class Game {
     pauseScreen.style.visibility = "hidden";
     document.querySelector("#pauseScreen h1").style.transform = "scale(0)";
 
-    this.musics.at(this.musicIndex).audio.play();
+    this.musics.at(this.musicsIndex).audio.play();
 
     if (
       this.paused === true &&
       this.player.lives >= 0 &&
       this.waves.at(-1).complete === false
     ) {
-      this.musics.at(this.musicIndex).audio.pause();
+      this.musics.at(this.musicsIndex).audio.pause();
       pause.innerText = "▶";
       pauseScreen.style.visibility = "visible";
       document.querySelector("#pauseScreen h1").style.transform = "scale(1)";
@@ -192,7 +192,7 @@ export class Game {
     if (this.player.lives < 0) {
       this.running = false;
       this.gameOver = true;
-      this.musics.at(this.musicIndex).audio.pause();
+      this.musics.at(this.musicsIndex).audio.pause();
       alert("Game Over!");
       return null;
     }
@@ -204,7 +204,7 @@ export class Game {
     } else {
       console.log("Waves completed!");
       this.running = false;
-      this.musics.at(this.musicIndex).audio.pause();
+      this.musics.at(this.musicsIndex).audio.pause();
 
       let confirm = window.confirm("Waves completed! Play again?");
       if (confirm) {
@@ -293,8 +293,8 @@ export class Game {
     this.gameOver = false;
     this.planet.create();
 
-    this.musicIndex = Math.floor(Math.random() * this.musics.length);
-    this.currentMusic = this.musics.at(this.musicIndex);
+    this.musicsIndex = Math.floor(Math.random() * this.musics.length);
+    this.currentMusic = this.musics.at(this.musicsIndex);
     this.currentMusic.audio.currentTime = 0;
     this.currentMusic.audio.volume = this.currentMusic.volume;
     this.currentMusic.audio.play();
