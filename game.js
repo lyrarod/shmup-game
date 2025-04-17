@@ -36,14 +36,11 @@ export class Game {
       x: 0,
       y: 0,
       width: this.width,
-      height: 1600,
+      height: 1016,
       image: new Image(),
       speed: 0.5,
-      frameTimer: 0,
-      frameInterval: 1000 / 60,
     };
-    this.background.image.src =
-      "./assets/T_PurpleBackground_Version2_Layer4.png";
+    this.background.image.src = "./assets/bg/Stars-Big_1_2_PC.png";
 
     this.score = 0;
     this.raf = null;
