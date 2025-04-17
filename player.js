@@ -12,7 +12,7 @@ export class Player {
     this.canMove = false;
 
     this.ship = new Image();
-    this.ship.src = "./assets/ship6.png";
+    this.ship.src = "./assets/ship/ship6.png";
 
     this.exhaust = {
       x: null,
@@ -30,7 +30,7 @@ export class Player {
     };
     // console.log(this.exhaust.frameX);
 
-    this.exhaust.sprite.src = "./assets/turbo_flight.png";
+    this.exhaust.sprite.src = "./assets/ship/turbo_flight.png";
 
     this.sounds = {
       shoot: new Audio("./assets/audio/LASRGun_Classic_Blaster_A_Fire_03.ogg"),

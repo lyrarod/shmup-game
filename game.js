@@ -56,6 +56,11 @@ export class Game {
 
     this.musics = [
       {
+        title: "The Legend of Zelda: A Link to the Past - Overworld",
+        audio: new Audio("./assets/audio/Overworld.ogg"),
+        volume: 0.25,
+      },
+      {
         title: "Ryu's Theme",
         audio: new Audio("./assets/audio/Ryu-Theme.ogg"),
         volume: 0.25,
@@ -73,7 +78,7 @@ export class Game {
       {
         title: "Theme of Super Metroid",
         audio: new Audio("./assets/audio/Theme-of-Super-Metroid.ogg"),
-        volume: 0.5,
+        volume: 0.35,
       },
     ];
 
@@ -133,10 +138,7 @@ export class Game {
   }
 
   update(deltaTime) {
-    // this.ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-    // this.ctx.fillRect(0, 0, this.width, this.height);
-    this.ctx.clearRect(0, 0, this.width, this.height);
-    // this.backgroundRender(deltaTime);
+    this.backgroundRender(deltaTime);
 
     if (
       this.enemy.enemies.length === 0 &&
@@ -223,7 +225,7 @@ export class Game {
     }
   };
 
-  backgroundRender(deltaTime) {
+  backgroundRender() {
     this.ctx.clearRect(0, 0, this.width, this.height);
 
     this.ctx.drawImage(
@@ -241,14 +243,9 @@ export class Game {
       this.background.height
     );
 
-    if (this.background.frameTimer > this.background.frameInterval) {
-      this.background.y += this.background.speed;
-      if (this.background.y >= this.height) {
-        this.background.y = 0;
-      }
-      this.background.frameTimer = 0;
-    } else {
-      this.background.frameTimer += deltaTime;
+    this.background.y += this.background.speed;
+    if (this.background.y >= this.height) {
+      this.background.y = 0;
     }
   }
 

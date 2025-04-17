@@ -1,8 +1,8 @@
 export class Enemy {
   constructor(game) {
     this.game = game;
-    this.width = 32;
-    this.height = 32;
+    this.width = 64;
+    this.height = 64;
     this.x = Math.random() * (this.game.width - this.width);
     this.y = -this.height;
     this.dx = Math.random() < 0.33 ? -0.2 : Math.random() < 0.66 ? 0.2 : 0;
@@ -19,6 +19,9 @@ export class Enemy {
       x: 0,
       y: 0,
     };
+
+    this.sprite = new Image();
+    this.sprite.src = "./assets/ship/Ship1.png";
   }
 
   takeDamage(damage) {
@@ -31,8 +34,13 @@ export class Enemy {
   }
 
   render() {
-    this.game.ctx.fillStyle = this.color;
-    this.game.ctx.fillRect(this.x, this.y, this.width, this.height);
+    this.game.ctx.drawImage(
+      this.sprite,
+      this.x,
+      this.y,
+      this.width,
+      this.height
+    );
 
     this.game.ctx.fillStyle = "lightgray";
     this.game.ctx.fillRect(this.x, this.y - 10, this.width, 5);
@@ -45,7 +53,7 @@ export class Enemy {
       this.game.ctx.fillRect(this.x + i * 3, this.y - 10, 5, 5);
     }
 
-    if (this.game.debug) {
+    if (this.game.debug === true) {
       this.game.ctx.strokeStyle = "#f00";
       this.game.ctx.strokeRect(
         this.hitbox.x,
@@ -62,18 +70,16 @@ export class Enemy {
       enemy.x += enemy.speed * enemy.dx;
       enemy.y += enemy.speed;
 
-      enemy.hitbox = {
-        width: 32,
-        height: 32,
-        x: enemy.x,
-        y: enemy.y,
-      };
+      enemy.hitbox.width = 64;
+      enemy.hitbox.height = 64;
+      enemy.hitbox.x = enemy.x;
+      enemy.hitbox.y = enemy.y;
 
       if (enemy.x < 0 || enemy.x + enemy.width > this.game.width) {
         enemy.dx *= -1;
       }
 
-      if (enemy.energy < 1 || enemy.y > this.game.height - enemy.height) {
+      if (enemy.energy < 1 || enemy.y > this.game.height) {
         this.enemies.splice(index, 1);
       }
 

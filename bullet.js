@@ -11,7 +11,7 @@ export class Bullet {
     this.bullets = [];
 
     this.sprite = new Image();
-    this.sprite.src = "./assets/bullets/original/spritesheet.png";
+    this.sprite.src = "./assets/bullet/original/spritesheet.png";
 
     // this.frameX = [0, 1, 2, 3, 4];
     this.frameX = Array.from({ length: 5 }, (_, index) => index);

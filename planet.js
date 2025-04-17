@@ -29,7 +29,7 @@ export class Planet {
     this.speed = 0.025;
     this.directionX = Math.random() < 0.5 ? -1 : 1;
 
-    this.sprite.src = `./assets/planets/${config.sprite ?? "spritesheet.png"}`;
+    this.sprite.src = `./assets/planet/${config.sprite ?? "spritesheet.png"}`;
 
     this.position = {
       x: config.position?.x ?? 0,
@@ -88,7 +88,7 @@ export class Planet {
 
   update(deltaTime) {
     this.planets.forEach((planet) => {
-      planet.render(deltaTime);
+      planet.render();
 
       if (planet.frameTimer >= planet.frameInterval) {
         planet.indexFrameX++;
