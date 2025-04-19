@@ -44,7 +44,7 @@ export class Game {
 
     this.score = 0;
     this.raf = null;
-    this.debug = false;
+    this.debug = true;
     this.paused = false;
     this.running = false;
     this.gameOver = false;
@@ -208,7 +208,6 @@ export class Game {
       let confirm = window.confirm("Waves completed! Play again?");
       if (confirm) {
         this.score = 0;
-        this.resetWaves();
         this.player.reset();
         this.resetHud();
         this.bullet.bullets = [];
@@ -285,6 +284,7 @@ export class Game {
   start() {
     this.running = true;
     this.gameOver = false;
+    this.resetWaves();
     this.planet.create();
 
     this.musicsIndex = Math.floor(Math.random() * this.musics.length);

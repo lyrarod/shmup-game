@@ -9,7 +9,7 @@ const waves = [
         src: "Ship1.png",
       },
       delay: 1000,
-      complete: false,
+      complete: true,
     },
     boss: {
       qty: 1,
@@ -17,7 +17,7 @@ const waves = [
       sprite: {
         width: 600,
         height: 600,
-        src: "ship_207.png",
+        src: "ship_41.png",
       },
       delay: 1000,
       complete: false,
@@ -33,8 +33,8 @@ const waves = [
         height: 128,
         src: "Ship2.png",
       },
-      delay: 950,
-      complete: false,
+      delay: 1000,
+      complete: true,
     },
     boss: {
       qty: 1,
@@ -42,7 +42,7 @@ const waves = [
       sprite: {
         width: 600,
         height: 600,
-        src: "ship_176.png",
+        src: "ship_44.png",
       },
       delay: 1000,
       complete: false,
@@ -58,8 +58,8 @@ const waves = [
         height: 128,
         src: "Ship3.png",
       },
-      delay: 900,
-      complete: false,
+      delay: 1000,
+      complete: true,
     },
     boss: {
       qty: 1,
@@ -67,7 +67,7 @@ const waves = [
       sprite: {
         width: 600,
         height: 600,
-        src: "ship_210.png",
+        src: "ship_48.png",
       },
       delay: 1000,
       complete: false,
@@ -83,8 +83,8 @@ const waves = [
         height: 128,
         src: "Ship4.png",
       },
-      delay: 850,
-      complete: false,
+      delay: 1000,
+      complete: true,
     },
     boss: {
       qty: 1,
@@ -92,7 +92,7 @@ const waves = [
       sprite: {
         width: 600,
         height: 600,
-        src: "ship_208.png",
+        src: "ship_49.png",
       },
       delay: 1000,
       complete: false,
@@ -108,8 +108,8 @@ const waves = [
         height: 128,
         src: "Ship5.png",
       },
-      delay: 800,
-      complete: false,
+      delay: 1000,
+      complete: true,
     },
     boss: {
       qty: 1,
@@ -117,7 +117,7 @@ const waves = [
       sprite: {
         width: 600,
         height: 600,
-        src: "ship_142.png",
+        src: "ship_176.png",
       },
       delay: 1000,
       complete: false,

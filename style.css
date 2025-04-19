@@ -51,8 +51,8 @@ main {
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  background-color: #0009;
-  backdrop-filter: blur(4px);
+  background-color: #0003;
+  backdrop-filter: blur(1px);
   z-index: 999;
   visibility: visible;
   color: whitesmoke;
@@ -102,8 +102,8 @@ main {
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  background-color: #0009;
-  backdrop-filter: blur(8px);
+  background-color: #0003;
+  backdrop-filter: blur(1px);
   z-index: 10;
   visibility: hidden;
   color: whitesmoke;
@@ -118,7 +118,6 @@ main {
   text-align: center;
   transform: scale(0);
   transition: all 0.2s ease-in-out;
-  font-size: clamp(2rem, 6vw, 3rem);
 }
 #pauseScreen p {
   /* Resume text */

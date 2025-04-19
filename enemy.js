@@ -25,7 +25,6 @@ export class Enemy {
     const src = this.game.waves.at(this.game.waveIndex).enemy["sprite"]["src"];
     this.sprite = new Image();
     this.sprite.src = `./assets/ship/${src}`;
-    // this.sprite.src = "./assets/ship/Ship1.png";
   }
 
   takeDamage(damage) {
