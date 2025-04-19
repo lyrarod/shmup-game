@@ -183,7 +183,7 @@ export class Game {
     let deltaTime = timeStamp - this.lastTime;
     this.lastTime = timeStamp;
 
-    if (this.paused) {
+    if (this.paused === true) {
       return (this.raf = requestAnimationFrame(this.loop));
     }
     // console.log("deltaTime:", Math.floor(deltaTime));
