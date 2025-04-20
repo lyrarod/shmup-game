@@ -1,14 +1,14 @@
-export class Boss {
+export class Boss4 {
   constructor(game) {
     this.game = game;
     this.width = 600;
     this.height = 600;
     this.x = this.game.width * 0.5 - this.width * 0.5;
-    this.y = -this.height * 0.75;
+    this.y = 0;
     this.energy = this.game.waves[this.game.waveIndex].boss["energy"];
     this.maxEnergy = this.energy;
     this.sprite = new Image();
-    this.sprite.src = `./assets/ship/boss/ship_41.png`;
+    this.sprite.src = `./assets/ship/boss/ship_176.png`;
 
     this.hitbox = {
       width: 0,
@@ -19,9 +19,8 @@ export class Boss {
   }
 
   takeDamage(damage) {
-    if (this.y < 0) return;
     this.energy -= damage;
-    this.y -= this.height * 0.01;
+    this.y -= this.height * 0.005;
     if (this.energy < 1) {
       this.game.score += damage;
       this.game.scoreHud.innerText = Number(this.game.score.toFixed(1));
@@ -36,10 +35,6 @@ export class Boss {
       this.width,
       this.height
     );
-
-    if (this.y < 0) {
-      this.y += 0.25;
-    }
 
     if (this.game.debug === true) {
       this.game.ctx.strokeStyle = "#fff";

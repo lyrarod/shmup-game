@@ -1,3 +1,9 @@
+import { Boss } from "./boss.js";
+import { Boss1 } from "./boss1.js";
+import { Boss2 } from "./boss2.js";
+import { Boss3 } from "./boss3.js";
+import { Boss4 } from "./boss4.js";
+
 const waves = [
   {
     enemy: {
@@ -9,16 +15,11 @@ const waves = [
         src: "Ship1.png",
       },
       delay: 1000,
-      complete: true,
+      complete: false,
     },
     boss: {
-      qty: 1,
+      type: Boss,
       energy: 3,
-      sprite: {
-        width: 600,
-        height: 600,
-        src: "ship_41.png",
-      },
       delay: 1000,
       complete: false,
     },
@@ -34,16 +35,11 @@ const waves = [
         src: "Ship2.png",
       },
       delay: 1000,
-      complete: true,
+      complete: false,
     },
     boss: {
-      qty: 1,
+      type: Boss1,
       energy: 5,
-      sprite: {
-        width: 600,
-        height: 600,
-        src: "ship_44.png",
-      },
       delay: 1000,
       complete: false,
     },
@@ -59,16 +55,11 @@ const waves = [
         src: "Ship3.png",
       },
       delay: 1000,
-      complete: true,
+      complete: false,
     },
     boss: {
-      qty: 1,
+      type: Boss2,
       energy: 7,
-      sprite: {
-        width: 600,
-        height: 600,
-        src: "ship_48.png",
-      },
       delay: 1000,
       complete: false,
     },
@@ -84,16 +75,11 @@ const waves = [
         src: "Ship4.png",
       },
       delay: 1000,
-      complete: true,
+      complete: false,
     },
     boss: {
-      qty: 1,
+      type: Boss3,
       energy: 9,
-      sprite: {
-        width: 600,
-        height: 600,
-        src: "ship_49.png",
-      },
       delay: 1000,
       complete: false,
     },
@@ -109,16 +95,11 @@ const waves = [
         src: "Ship5.png",
       },
       delay: 1000,
-      complete: true,
+      complete: false,
     },
     boss: {
-      qty: 1,
+      type: Boss4,
       energy: 10,
-      sprite: {
-        width: 600,
-        height: 600,
-        src: "ship_176.png",
-      },
       delay: 1000,
       complete: false,
     },
@@ -129,9 +110,9 @@ const waves = [
 export const getWaves = () => {
   return waves.map((wave) => {
     return {
-      ...wave,
-      enemy: { ...wave.enemy },
-      boss: { ...wave.boss },
+      // ...wave,
+      enemy: { ...wave.enemy, qty: 5, energy: 3, complete: true },
+      boss: { ...wave.boss, energy: 10 },
       complete: wave.complete,
     };
   });

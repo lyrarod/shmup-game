@@ -5,6 +5,10 @@ import { Boss } from "./boss.js";
 import { Planet } from "./planet.js";
 import { getWaves } from "./waves.js";
 import { Keyboard } from "./keyboard.js";
+import { Boss1 } from "./boss1.js";
+import { Boss2 } from "./boss2.js";
+import { Boss3 } from "./boss3.js";
+import { Boss4 } from "./boss4.js";
 
 export class Game {
   constructor() {
@@ -15,12 +19,18 @@ export class Game {
 
     this.waves = [];
     this.waveIndex = 0;
-    this.resetWaves();
+    this.startWaves();
 
     this.player = new Player(this);
     this.bullet = new Bullet(this);
     this.enemy = new Enemy(this);
-    this.boss = new Boss(this);
+    this.allBoss = [
+      new Boss(this),
+      new Boss1(this),
+      new Boss2(this),
+      new Boss3(this),
+      new Boss4(this),
+    ];
     this.planet = new Planet(this);
     this.keyboard = new Keyboard(this);
 
@@ -28,9 +38,11 @@ export class Game {
       this.planet,
       this.bullet,
       this.enemy,
-      this.boss,
       this.player,
+      ...this.allBoss,
     ];
+
+    this.bosses = [];
 
     this.background = {
       x: 0,
@@ -44,7 +56,7 @@ export class Game {
 
     this.score = 0;
     this.raf = null;
-    this.debug = true;
+    this.debug = false;
     this.paused = false;
     this.running = false;
     this.gameOver = false;
@@ -101,12 +113,12 @@ export class Game {
     this.wavesHud = document.getElementById("waves");
     this.livesHud = document.getElementById("lives");
 
-    this.resetHud();
+    this.startHud();
   }
 
-  resetHud() {
-    this.scoreHud.innerText = this.score;
-    this.waveHud.innerText = this.waveIndex + 1;
+  startHud() {
+    this.scoreHud.innerText = this.score = 0;
+    this.waveHud.innerText = this.waveIndex = 0 + 1;
     this.wavesHud.innerText = this.waves.length;
     this.livesHud.innerText = this.player.lives;
   }
@@ -152,8 +164,9 @@ export class Game {
     }
 
     if (
-      this.boss.bosses.length === 0 &&
+      this.bosses.length === 0 &&
       this.waveIndex < this.waves.length &&
+      this.waves.at(this.waveIndex).complete === false &&
       this.waves.at(this.waveIndex).boss["complete"] === false &&
       this.waves.at(this.waveIndex).enemy["complete"] === true
     ) {
@@ -207,15 +220,6 @@ export class Game {
 
       let confirm = window.confirm("Waves completed! Play again?");
       if (confirm) {
-        this.score = 0;
-        this.player.reset();
-        this.resetHud();
-        this.bullet.bullets = [];
-        this.enemy.enemies = [];
-        this.boss.bosses = [];
-        this.background.y = 0;
-        this.background.frameTimer = 0;
-
         this.start();
       }
     }
@@ -255,15 +259,13 @@ export class Game {
   }
 
   async spawnBoss() {
-    const qty = this.waves.at(this.waveIndex).boss["qty"];
     const delay = this.waves.at(this.waveIndex).boss["delay"];
-    for (let i = 0; i < qty; i++) {
-      this.boss.bosses.push(new Boss(this));
-      await this.delay(delay);
-    }
+    const boss = this.waves.at(this.waveIndex).boss["type"];
+    await this.delay(delay);
+    this.bosses.push(new boss(this));
   }
 
-  resetWaves() {
+  startWaves() {
     this.waveIndex = 0;
     this.waves = getWaves();
   }
@@ -284,8 +286,15 @@ export class Game {
   start() {
     this.running = true;
     this.gameOver = false;
-    this.resetWaves();
+    this.startHud();
+    this.startWaves();
+    this.player.reset();
     this.planet.create();
+    this.enemy.enemies = [];
+    this.bullet.bullets = [];
+    this.bosses = [];
+    this.background.y = 0;
+    this.background.frameTimer = 0;
 
     this.musicsIndex = Math.floor(Math.random() * this.musics.length);
     this.currentMusic = this.musics.at(this.musicsIndex);

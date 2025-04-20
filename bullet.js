@@ -94,7 +94,7 @@ export class Bullet {
         }
       });
 
-      this.game.boss.bosses.forEach((boss) => {
+      this.game.bosses.forEach((boss) => {
         if (this.game.collisionDetection(boss.hitbox, bullet.hitbox)) {
           boss.takeDamage(1);
           bullet.isRemoved = true;
