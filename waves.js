@@ -111,7 +111,7 @@ export const getWaves = () => {
   return waves.map((wave) => {
     return {
       // ...wave,
-      enemy: { ...wave.enemy, qty: 5, energy: 3, complete: true },
+      enemy: { ...wave.enemy, qty: 5, energy: 3, complete: false },
       boss: { ...wave.boss, energy: 10 },
       complete: wave.complete,
     };
