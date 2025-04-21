@@ -1,8 +1,4 @@
-import { Boss } from "./boss.js";
-import { Boss1 } from "./boss1.js";
-import { Boss2 } from "./boss2.js";
-import { Boss3 } from "./boss3.js";
-import { Boss4 } from "./boss4.js";
+import { Boss, Boss1, Boss2, Boss3, Boss4 } from "./boss.js";
 
 const waves = [
   {
@@ -111,7 +107,7 @@ export const getWaves = () => {
   return waves.map((wave) => {
     return {
       // ...wave,
-      enemy: { ...wave.enemy, qty: 5, energy: 3, complete: false },
+      enemy: { ...wave.enemy, qty: 10, energy: 3, complete: false },
       boss: { ...wave.boss, energy: 10 },
       complete: wave.complete,
     };

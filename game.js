@@ -5,10 +5,6 @@ import { Boss } from "./boss.js";
 import { Planet } from "./planet.js";
 import { getWaves } from "./waves.js";
 import { Keyboard } from "./keyboard.js";
-import { Boss1 } from "./boss1.js";
-import { Boss2 } from "./boss2.js";
-import { Boss3 } from "./boss3.js";
-import { Boss4 } from "./boss4.js";
 
 export class Game {
   constructor() {
@@ -24,13 +20,8 @@ export class Game {
     this.player = new Player(this);
     this.bullet = new Bullet(this);
     this.enemy = new Enemy(this);
-    this.allBoss = [
-      new Boss(this),
-      new Boss1(this),
-      new Boss2(this),
-      new Boss3(this),
-      new Boss4(this),
-    ];
+
+    this.boss = new Boss(this);
     this.planet = new Planet(this);
     this.keyboard = new Keyboard(this);
 
@@ -39,7 +30,7 @@ export class Game {
       this.bullet,
       this.enemy,
       this.player,
-      ...this.allBoss,
+      this.boss,
     ];
 
     this.bosses = [];
@@ -286,9 +277,9 @@ export class Game {
   start() {
     this.running = true;
     this.gameOver = false;
+    this.player.reset();
     this.startHud();
     this.startWaves();
-    this.player.reset();
     this.planet.create();
     this.enemy.enemies = [];
     this.bullet.bullets = [];
