@@ -148,7 +148,7 @@ export class Game {
       this.frame++;
       // console.log("frame:", this.frame);
 
-      if (this.frame >= 120) {
+      if (this.frame >= 160) {
         this.spawnEnemies();
         this.frame = 0;
       }
@@ -216,6 +216,20 @@ export class Game {
     }
   };
 
+  async spawnEnemies() {
+    const qty = this.waves.at(this.waveIndex).enemy["qty"];
+    const delay = this.waves.at(this.waveIndex).enemy["delay"];
+    for (let i = 0; i < qty; i++) {
+      this.enemy.enemies.push(new Enemy(this));
+      await this.delay(delay);
+    }
+  }
+
+  spawnBoss() {
+    const boss = this.waves.at(this.waveIndex).boss["type"];
+    this.bosses.push(new boss(this));
+  }
+
   backgroundRender() {
     this.ctx.clearRect(0, 0, this.width, this.height);
 
@@ -238,22 +252,6 @@ export class Game {
     if (this.background.y >= this.height) {
       this.background.y = 0;
     }
-  }
-
-  async spawnEnemies() {
-    const qty = this.waves.at(this.waveIndex).enemy["qty"];
-    const delay = this.waves.at(this.waveIndex).enemy["delay"];
-    for (let i = 0; i < qty; i++) {
-      this.enemy.enemies.push(new Enemy(this));
-      await this.delay(delay);
-    }
-  }
-
-  async spawnBoss() {
-    const delay = this.waves.at(this.waveIndex).boss["delay"];
-    const boss = this.waves.at(this.waveIndex).boss["type"];
-    await this.delay(delay);
-    this.bosses.push(new boss(this));
   }
 
   startWaves() {

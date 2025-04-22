@@ -85,10 +85,7 @@ export class Bullet {
         bullet.y + bullet.height * 0.5 - bullet.hitbox.height * 0.1;
 
       this.game.enemy.enemies.forEach((enemy) => {
-        if (
-          this.game.collisionDetection(enemy.hitbox, bullet.hitbox) &&
-          enemy.y - 10 > 0
-        ) {
+        if (this.game.collisionDetection(enemy.hitbox, bullet.hitbox)) {
           enemy.takeDamage(1);
           bullet.isRemoved = true;
         }

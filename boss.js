@@ -35,7 +35,7 @@ export class Boss {
     }
   }
 
-  render() {
+  drawAndDebug() {
     this.game.ctx.drawImage(
       this.sprite,
       this.x,
@@ -64,6 +64,10 @@ export class Boss {
         this.sizebox.height
       );
     }
+  }
+
+  render() {
+    this.drawAndDebug();
 
     this.hitbox.width = 100;
     this.hitbox.height = 100;
@@ -123,34 +127,7 @@ export class Boss1 extends Boss {
 
   render() {
     // super.render();
-    this.game.ctx.drawImage(
-      this.sprite,
-      this.x,
-      this.y,
-      this.width,
-      this.height
-    );
-
-    if (this.game.debug === true) {
-      this.game.ctx.strokeStyle = "#fff";
-      this.game.ctx.strokeRect(this.x, this.y, this.width, this.height);
-
-      this.game.ctx.strokeStyle = "#f00";
-      this.game.ctx.strokeRect(
-        this.hitbox.x,
-        this.hitbox.y,
-        this.hitbox.width,
-        this.hitbox.height
-      );
-
-      this.game.ctx.strokeStyle = "#0f0";
-      this.game.ctx.strokeRect(
-        this.sizebox.x,
-        this.sizebox.y,
-        this.sizebox.width,
-        this.sizebox.height
-      );
-    }
+    super.drawAndDebug();
 
     this.hitbox.width = 50;
     this.hitbox.height = 100;
@@ -184,7 +161,23 @@ export class Boss2 extends Boss {
   }
 
   render() {
-    super.render();
+    // super.render();
+    super.drawAndDebug();
+
+    this.hitbox.width = 50;
+    this.hitbox.height = 100;
+    this.hitbox.x = this.x + this.width * 0.5 - this.hitbox.width * 0.5;
+    this.hitbox.y = this.y + this.height * 0.5 - this.hitbox.height * 0.5 - 60;
+
+    this.sizebox.width = 400;
+    this.sizebox.height = 300;
+    this.sizebox.x = this.x + this.width * 0.5 - this.sizebox.width * 0.5;
+    this.sizebox.y =
+      this.y + this.height * 0.5 - this.sizebox.height * 0.5 - 30;
+
+    if (this.sizebox.y - 50 < 0) {
+      this.y++;
+    }
   }
 
   update(deltaTime) {
@@ -203,7 +196,23 @@ export class Boss3 extends Boss {
   }
 
   render() {
-    super.render();
+    // super.render();
+    super.drawAndDebug();
+
+    this.hitbox.width = 50;
+    this.hitbox.height = 100;
+    this.hitbox.x = this.x + this.width * 0.5 - this.hitbox.width * 0.5;
+    this.hitbox.y = this.y + this.height * 0.5 - this.hitbox.height * 0.5 - 70;
+
+    this.sizebox.width = 420;
+    this.sizebox.height = 250;
+    this.sizebox.x = this.x + this.width * 0.5 - this.sizebox.width * 0.5;
+    this.sizebox.y =
+      this.y + this.height * 0.5 - this.sizebox.height * 0.5 - 18;
+
+    if (this.sizebox.y - 50 < 0) {
+      this.y++;
+    }
   }
 
   update(deltaTime) {
@@ -222,7 +231,23 @@ export class Boss4 extends Boss {
   }
 
   render() {
-    super.render();
+    // super.render();
+    super.drawAndDebug();
+
+    this.hitbox.width = 50;
+    this.hitbox.height = 100;
+    this.hitbox.x = this.x + this.width * 0.5 - this.hitbox.width * 0.5;
+    this.hitbox.y = this.y + this.height * 0.5 - this.hitbox.height * 0.5 - 70;
+
+    this.sizebox.width = 370;
+    this.sizebox.height = 240;
+    this.sizebox.x = this.x + this.width * 0.5 - this.sizebox.width * 0.5;
+    this.sizebox.y =
+      this.y + this.height * 0.5 - this.sizebox.height * 0.5 - 45;
+
+    if (this.sizebox.y - 50 < 0) {
+      this.y++;
+    }
   }
 
   update(deltaTime) {

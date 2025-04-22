@@ -26,7 +26,7 @@ export class Planet {
     this.sprite = new Image();
     this.frameTimer = 0;
     this.frameInterval = config.frameInterval ?? 1000 / 60;
-    this.speed = 0.025;
+    this.speed = 0.03;
     this.directionX = Math.random() < 0.5 ? -1 : 1;
 
     this.sprite.src = `./assets/planet/${config.sprite ?? "spritesheet.png"}`;
@@ -62,7 +62,7 @@ export class Planet {
         height: 128,
         position: {
           x: this.game.width * 0.5 - 128 * 0.5,
-          y: 200,
+          y: 300,
         },
         frameX: [1, 2, 3, 4, 5, 4, 3, 2, 1, 0],
         frameInterval: 20000,
@@ -89,6 +89,11 @@ export class Planet {
   update(deltaTime) {
     this.planets.forEach((planet) => {
       planet.render();
+      planet.position.y += planet.speed;
+
+      if (planet.position.y > this.game.height) {
+        planet.position.y = -planet.height;
+      }
 
       if (planet.frameTimer >= planet.frameInterval) {
         planet.indexFrameX++;

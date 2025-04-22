@@ -28,8 +28,9 @@ export class Enemy {
   }
 
   takeDamage(damage) {
+    if (this.y < 0) return;
     this.energy -= damage;
-    this.y -= this.height * 0.1;
+    this.y -= this.height * 0.05;
     if (this.energy < 1) {
       this.game.score += damage * 0.1;
       this.game.scoreHud.innerText = Number(this.game.score.toFixed(1));

@@ -2,6 +2,7 @@ import { Boss, Boss1, Boss2, Boss3, Boss4 } from "./boss.js";
 
 const waves = [
   {
+    id: "wave-01",
     enemy: {
       qty: 3,
       energy: 3,
@@ -22,6 +23,7 @@ const waves = [
     complete: false,
   },
   {
+    id: "wave-02",
     enemy: {
       qty: 5,
       energy: 5,
@@ -42,6 +44,7 @@ const waves = [
     complete: false,
   },
   {
+    id: "wave-03",
     enemy: {
       qty: 7,
       energy: 7,
@@ -62,6 +65,7 @@ const waves = [
     complete: false,
   },
   {
+    id: "wave-04",
     enemy: {
       qty: 9,
       energy: 9,
@@ -82,6 +86,7 @@ const waves = [
     complete: false,
   },
   {
+    id: "wave-05",
     enemy: {
       qty: 10,
       energy: 10,
@@ -107,8 +112,8 @@ export const getWaves = () => {
   return waves.map((wave) => {
     return {
       // ...wave,
-      enemy: { ...wave.enemy, qty: 10, energy: 3, complete: false },
-      boss: { ...wave.boss, energy: 10 },
+      enemy: { ...wave.enemy, qty: 25, energy: 3, complete: false },
+      boss: { ...wave.boss, energy: 25 },
       complete: wave.complete,
     };
   });
