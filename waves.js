@@ -3,6 +3,7 @@ import { Boss, Boss1, Boss2, Boss3, Boss4 } from "./boss.js";
 const waves = [
   {
     id: "wave-01",
+    audio: "overworld.ogg",
     enemy: {
       qty: 3,
       energy: 3,
@@ -24,6 +25,7 @@ const waves = [
   },
   {
     id: "wave-02",
+    audio: "battle-against-machine.mp3",
     enemy: {
       qty: 5,
       energy: 5,
@@ -45,6 +47,7 @@ const waves = [
   },
   {
     id: "wave-03",
+    audio: "KOF2k-Heroes-Team.ogg",
     enemy: {
       qty: 7,
       energy: 7,
@@ -66,6 +69,7 @@ const waves = [
   },
   {
     id: "wave-04",
+    audio: "kraken-of-the-sea.mp3",
     enemy: {
       qty: 9,
       energy: 9,
@@ -87,6 +91,7 @@ const waves = [
   },
   {
     id: "wave-05",
+    audio: "Top-Gear-Las-Vegas.ogg",
     enemy: {
       qty: 10,
       energy: 10,
@@ -111,10 +116,10 @@ const waves = [
 export const getWaves = () => {
   return waves.map((wave) => {
     return {
-      // ...wave,
-      enemy: { ...wave.enemy, qty: 25, energy: 3, complete: false },
-      boss: { ...wave.boss, energy: 25 },
-      complete: wave.complete,
+      ...wave,
+      enemy: { ...wave.enemy, qty: 10, energy: 3, complete: false },
+      boss: { ...wave.boss, energy: 20, complete: false },
+      complete: false,
     };
   });
 };

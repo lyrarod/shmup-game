@@ -9,6 +9,7 @@ export class Planet {
       frameX: null,
       frameInterval: null,
       maxFrameY: null,
+      speed: null,
     }
   ) {
     this.game = game;
@@ -26,10 +27,10 @@ export class Planet {
     this.sprite = new Image();
     this.frameTimer = 0;
     this.frameInterval = config.frameInterval ?? 1000 / 60;
-    this.speed = 0.03;
+    this.speed = config.speed ?? 0;
     this.directionX = Math.random() < 0.5 ? -1 : 1;
 
-    this.sprite.src = `./assets/planet/${config.sprite ?? "spritesheet.png"}`;
+    this.sprite.src = `./assets/planet/${config.sprite ?? "planet.png"}`;
 
     this.position = {
       x: config.position?.x ?? 0,
@@ -44,28 +45,30 @@ export class Planet {
 
     this.planets.push(
       new Planet(this.game, {
-        sprite: "spritesheet.png",
+        sprite: "planet.png",
         width: 512,
         height: 512,
         position: {
-          x: this.game.width - 512 * 0.6,
-          y: -512 * 0.45,
+          x: this.game.width - 512 * 0.5,
+          y: -512 * 0.75,
         },
         frameX: [2],
+        speed: 0.05,
       })
     );
 
     this.planets.push(
       new Planet(this.game, {
-        sprite: "Earth-128x128.png",
+        sprite: "earth.png",
         width: 128,
         height: 128,
         position: {
           x: this.game.width * 0.5 - 128 * 0.5,
-          y: 300,
+          y: 200,
         },
         frameX: [1, 2, 3, 4, 5, 4, 3, 2, 1, 0],
         frameInterval: 20000,
+        speed: 0.025,
       })
     );
 

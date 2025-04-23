@@ -20,7 +20,6 @@ export class Game {
     this.player = new Player(this);
     this.bullet = new Bullet(this);
     this.enemy = new Enemy(this);
-
     this.boss = new Boss(this);
     this.planet = new Planet(this);
     this.keyboard = new Keyboard(this);
@@ -34,6 +33,7 @@ export class Game {
     ];
 
     this.bosses = [];
+    this.enemies = [];
 
     this.background = {
       x: 0,
@@ -41,7 +41,7 @@ export class Game {
       width: this.width,
       height: 1016,
       image: new Image(),
-      speed: 0.5,
+      speed: 0.75,
     };
     this.background.image.src = "./assets/bg/Stars-Big_1_2_PC.png";
 
@@ -54,50 +54,53 @@ export class Game {
     this.frame = 0;
     this.lastTime = 0;
 
-    this.musics = [
-      {
-        title: "The Legend of Zelda: A Link to the Past - Overworld",
-        audio: new Audio("./assets/audio/Overworld.ogg"),
-        volume: 0.25,
-      },
-      {
-        title: "Ryu's Theme",
-        audio: new Audio("./assets/audio/Ryu-Theme.ogg"),
-        volume: 0.25,
-      },
-      {
-        title: "Top Gear: Las Vegas",
-        audio: new Audio("./assets/audio/Top-Gear-Las-Vegas.ogg"),
-        volume: 0.25,
-      },
-      {
-        title: "The King of Fighters 2000: Heroes Team",
-        audio: new Audio("./assets/audio/KOF2k-Heroes-Team.ogg"),
-        volume: 0.25,
-      },
-      {
-        title: "Theme of Super Metroid",
-        audio: new Audio("./assets/audio/Theme-of-Super-Metroid.ogg"),
-        volume: 0.35,
-      },
-    ];
+    // this.musics = [
+    //   {
+    //     title: "The Legend of Zelda: A Link to the Past - Overworld",
+    //     audio: new Audio("./assets/audio/Overworld.ogg"),
+    //     volume: 0.25,
+    //   },
+    //   {
+    //     title: "Ryu's Theme",
+    //     audio: new Audio("./assets/audio/Ryu-Theme.ogg"),
+    //     volume: 0.25,
+    //   },
+    //   {
+    //     title: "Top Gear: Las Vegas",
+    //     audio: new Audio("./assets/audio/Top-Gear-Las-Vegas.ogg"),
+    //     volume: 0.25,
+    //   },
+    //   {
+    //     title: "The King of Fighters 2000: Heroes Team",
+    //     audio: new Audio("./assets/audio/KOF2k-Heroes-Team.ogg"),
+    //     volume: 0.25,
+    //   },
+    //   {
+    //     title: "Theme of Super Metroid",
+    //     audio: new Audio("./assets/audio/Theme-of-Super-Metroid.ogg"),
+    //     volume: 0.35,
+    //   },
+    // ];
 
-    this.musicsIndex = null;
-    this.currentMusic = null;
+    // this.musicsIndex = null;
+    // this.currentMusic = null;
 
-    this.musics.map((music, i) => {
-      music.audio.addEventListener("play", () => {
-        console.log(music);
-      });
+    // this.musics.map((music, i) => {
+    //   music.audio.addEventListener("play", () => {
+    //     console.log(music);
+    //   });
 
-      music.audio.addEventListener("ended", () => {
-        this.musicsIndex = i < this.musics.length - 1 ? i + 1 : 0;
-        this.currentMusic = this.musics.at(this.musicsIndex);
-        this.currentMusic.audio.currentTime = 0;
-        this.currentMusic.audio.volume = this.currentMusic.volume;
-        this.currentMusic.audio.play();
-      });
-    });
+    //   music.audio.addEventListener("ended", () => {
+    //     this.musicsIndex = i < this.musics.length - 1 ? i + 1 : 0;
+    //     this.currentMusic = this.musics.at(this.musicsIndex);
+    //     this.currentMusic.audio.currentTime = 0;
+    //     this.currentMusic.audio.volume = this.currentMusic.volume;
+    //     this.currentMusic.audio.play();
+    //   });
+    // });
+
+    this.audio = new Audio();
+    this.path = "./assets/audio/wave/";
 
     this.scoreHud = document.getElementById("score");
     this.waveHud = document.getElementById("wave");
@@ -121,15 +124,14 @@ export class Game {
     pause.innerText = "❚❚";
     pauseScreen.style.visibility = "hidden";
     document.querySelector("#pauseScreen h1").style.transform = "scale(0)";
-
-    this.musics.at(this.musicsIndex).audio.play();
+    this.audio.play();
 
     if (
       this.paused === true &&
       this.player.lives >= 0 &&
       this.waves.at(-1).complete === false
     ) {
-      this.musics.at(this.musicsIndex).audio.pause();
+      this.audio.pause();
       pause.innerText = "▶";
       pauseScreen.style.visibility = "visible";
       document.querySelector("#pauseScreen h1").style.transform = "scale(1)";
@@ -138,10 +140,10 @@ export class Game {
   }
 
   update(deltaTime) {
-    this.backgroundRender(deltaTime);
+    this.backgroundRender();
 
     if (
-      this.enemy.enemies.length === 0 &&
+      this.enemies.length === 0 &&
       this.waveIndex < this.waves.length &&
       this.waves.at(this.waveIndex).enemy["complete"] === false
     ) {
@@ -177,6 +179,10 @@ export class Game {
       this.waveIndex++;
       if (this.waveIndex <= this.waves.length - 1) {
         this.waveHud.innerText = this.waveIndex + 1;
+
+        this.audio.src = `${this.path}${this.waves.at(this.waveIndex).audio}`;
+        this.audio.currentTime = 0;
+        this.audio.play();
       }
     }
 
@@ -195,7 +201,7 @@ export class Game {
     if (this.player.lives < 0) {
       this.running = false;
       this.gameOver = true;
-      this.musics.at(this.musicsIndex).audio.pause();
+      this.audio.pause();
       alert("Game Over!");
       return null;
     }
@@ -207,7 +213,7 @@ export class Game {
     } else {
       console.log("Waves completed!");
       this.running = false;
-      this.musics.at(this.musicsIndex).audio.pause();
+      this.audio.pause();
 
       let confirm = window.confirm("Waves completed! Play again?");
       if (confirm) {
@@ -220,7 +226,7 @@ export class Game {
     const qty = this.waves.at(this.waveIndex).enemy["qty"];
     const delay = this.waves.at(this.waveIndex).enemy["delay"];
     for (let i = 0; i < qty; i++) {
-      this.enemy.enemies.push(new Enemy(this));
+      this.enemies.push(new Enemy(this));
       await this.delay(delay);
     }
   }
@@ -279,17 +285,23 @@ export class Game {
     this.startHud();
     this.startWaves();
     this.planet.create();
-    this.enemy.enemies = [];
     this.bullet.bullets = [];
+    this.enemies = [];
     this.bosses = [];
     this.background.y = 0;
     this.background.frameTimer = 0;
 
-    this.musicsIndex = Math.floor(Math.random() * this.musics.length);
-    this.currentMusic = this.musics.at(this.musicsIndex);
-    this.currentMusic.audio.currentTime = 0;
-    this.currentMusic.audio.volume = this.currentMusic.volume;
-    this.currentMusic.audio.play();
+    this.audio.src = `${this.path}${this.waves.at(this.waveIndex).audio}`;
+    this.audio.volume = 0.3;
+    this.audio.loop = true;
+    this.audio.currentTime = 0;
+    this.audio.play();
+
+    // this.musicsIndex = Math.floor(Math.random() * this.musics.length);
+    // this.currentMusic = this.musics.at(this.musicsIndex);
+    // this.currentMusic.audio.currentTime = 0;
+    // this.currentMusic.audio.volume = this.currentMusic.volume;
+    // this.currentMusic.audio.play();
 
     this.raf = requestAnimationFrame(this.loop);
   }

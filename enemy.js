@@ -12,7 +12,6 @@ export class Enemy {
     this.dx = Math.random() < 0.333 ? -0.2 : Math.random() < 0.666 ? 0.2 : 0;
     this.speed = 0.2 + Math.random();
     this.color = this.game.waves.at(this.game.waveIndex).boss["color"];
-    this.enemies = [];
     this.energy = this.game.waves.at(this.game.waveIndex).enemy["energy"];
     this.maxEnergy = this.energy;
     this.hitbox = {
@@ -69,7 +68,7 @@ export class Enemy {
   }
 
   update(deltaTime) {
-    this.enemies.forEach((enemy, index) => {
+    this.game.enemies.forEach((enemy, index) => {
       enemy.render();
       enemy.x += enemy.speed * enemy.dx;
       enemy.y += enemy.speed;
@@ -84,17 +83,17 @@ export class Enemy {
       }
 
       if (enemy.energy < 1 || enemy.y > this.game.height) {
-        this.enemies.splice(index, 1);
+        this.game.enemies.splice(index, 1);
       }
 
-      if (this.game.collisionDetection(this.game.player, enemy)) {
+      if (this.game.collisionDetection(enemy, this.game.player)) {
         this.game.player.takeDamage(1);
-        this.enemies.splice(index, 1);
+        this.game.enemies.splice(index, 1);
       }
 
       // console.log(this.enemies);
 
-      if (this.enemies.length === 0) {
+      if (this.game.enemies.length === 0) {
         this.game.waves[this.game.waveIndex].enemy["complete"] = true;
         // console.clear();
       }
