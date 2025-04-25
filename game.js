@@ -246,6 +246,7 @@ export class Game {
     this.bullet.bullets = [];
     this.enemies = [];
     this.bosses = [];
+    this.explosion.explosions = [];
     this.background.y = 0;
     this.background.frameTimer = 0;
 

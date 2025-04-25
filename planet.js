@@ -30,7 +30,9 @@ export class Planet {
     this.speed = config.speed ?? 0;
     this.directionX = Math.random() < 0.5 ? -1 : 1;
 
-    this.sprite.src = `./assets/planet/${config.sprite ?? "planet.png"}`;
+    this.sprite.src = `./assets/planet/${
+      config.sprite ?? "Terrestrial_01-512x512.png"
+    }`;
 
     this.position = {
       x: config.position?.x ?? 0,
@@ -45,31 +47,16 @@ export class Planet {
 
     this.planets.push(
       new Planet(this.game, {
-        sprite: "planet.png",
+        sprite: "Terrestrial_01-512x512.png",
         width: 512,
         height: 512,
         position: {
-          x: this.game.width - 512 * 0.5,
-          y: -512 * 0.1,
+          x: Math.random() * (this.game.width - 512 * 0.5),
+          y: this.game.height - 512 * 0.5,
         },
-        frameX: [2],
+        frameX: 1,
       })
     );
-
-    this.planets.push(
-      new Planet(this.game, {
-        sprite: "earth.png",
-        width: 128,
-        height: 128,
-        position: {
-          x: this.game.width * 0.5 - 128 * 0.5,
-          y: this.game.height * 0.5 - 128 * 0.5,
-        },
-        frameX: [1, 2, 3, 4, 5, 4, 3, 2, 1, 0],
-        frameInterval: 20000,
-      })
-    );
-
     // console.log(this.planets);
   }
 
@@ -94,6 +81,8 @@ export class Planet {
 
       if (planet.position.y > this.game.height) {
         planet.position.y = -planet.height;
+        planet.position.x =
+          Math.random() * (this.game.width - planet.width * 0.5);
       }
 
       if (planet.frameTimer >= planet.frameInterval) {

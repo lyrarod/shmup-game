@@ -134,7 +134,7 @@ main {
   object-fit: cover;
   user-select: none;
   cursor: none;
-  background-image: url("./assets/bg/bg.png");
+  background-image: url("./assets/bg/background.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;

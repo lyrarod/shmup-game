@@ -1,8 +1,9 @@
 export class Boss {
   constructor(game) {
     this.game = game;
-    this.width = 600;
-    this.height = 600;
+    this.size = 600;
+    this.width = this.size;
+    this.height = this.size;
     this.x = this.game.width * 0.5 - this.width * 0.5;
     this.y = -this.height * 0.75;
     this.energy = this.game.waves[this.game.waveIndex].boss["energy"];

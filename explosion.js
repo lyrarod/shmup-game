@@ -1,25 +1,24 @@
 export class Explosion {
   constructor(game, position = {}) {
     this.game = game;
-    this.x = position.x;
-    this.y = position.y;
 
     this.explosion = {
+      width: 128,
+      height: 128,
+      x: position.x ?? 0,
+      y: position.y ?? 0,
       sprite: new Image(),
       frameX: Array.from({ length: 10 }, (_, index) => index),
       indexFrameX: 0,
       frameY: 0,
       frameTimer: 0,
       frameInterval: 30,
-      width: 128,
-      height: 128,
-      x: this.x,
-      y: this.y,
       isVisible: true,
     };
     this.explosion.sprite.src = "./assets/bullet/original/explosion.png";
 
     this.explosions = [];
+    // console.log(this.explosion.frameX);
   }
 
   create(position = {}) {
@@ -45,7 +44,6 @@ export class Explosion {
       if (this.explosion.indexFrameX >= this.explosion.frameX.length) {
         this.isVisible = false;
       }
-
       this.explosion.frameTimer = 0;
     } else {
       this.explosion.frameTimer += deltaTime;
@@ -63,13 +61,12 @@ export class Explosion {
   }
 
   update(deltaTime) {
-    this.explosions.forEach((obj, index) => {
-      obj.render(deltaTime);
+    this.explosions.forEach((explosion, index) => {
+      explosion.render(deltaTime);
 
-      if (obj.isVisible === false) {
+      if (explosion.isVisible === false) {
         this.explosions.splice(index, 1);
       }
-
       // console.log(this.explosions);
     });
   }
