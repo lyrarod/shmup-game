@@ -50,10 +50,9 @@ export class Planet {
         height: 512,
         position: {
           x: this.game.width - 512 * 0.5,
-          y: -512 * 0.75,
+          y: -512 * 0.1,
         },
         frameX: [2],
-        speed: 0.05,
       })
     );
 
@@ -64,11 +63,10 @@ export class Planet {
         height: 128,
         position: {
           x: this.game.width * 0.5 - 128 * 0.5,
-          y: 200,
+          y: this.game.height * 0.5 - 128 * 0.5,
         },
         frameX: [1, 2, 3, 4, 5, 4, 3, 2, 1, 0],
         frameInterval: 20000,
-        speed: 0.025,
       })
     );
 

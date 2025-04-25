@@ -117,7 +117,6 @@ export class Boss {
 export class Boss1 extends Boss {
   constructor(game) {
     super(game);
-    this.y = -this.height * 0.7;
     this.sprite.src = `./assets/ship/boss/ship_44.png`;
   }
 

@@ -6,8 +6,6 @@ export class Player {
     this.x = this.game.width * 0.5 - this.width * 0.5;
     this.y = this.game.height;
     this.speed = 4;
-    this.colors = ["purple"];
-    this.color = this.colors[Math.floor(Math.random() * this.colors.length)];
     this.lives = 3;
     this.canMove = false;
 
@@ -92,11 +90,11 @@ export class Player {
 
     if (this.game.debug === true) {
       // Player
-      this.game.ctx.strokeStyle = this.color;
+      this.game.ctx.strokeStyle = "#fff";
       this.game.ctx.strokeRect(this.x, this.y, this.width, this.height);
 
       // Exhaust
-      this.game.ctx.strokeStyle = this.color;
+      this.game.ctx.strokeStyle = "#fff";
       this.game.ctx.strokeRect(
         this.exhaust.x,
         this.exhaust.y,

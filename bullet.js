@@ -6,12 +6,11 @@ export class Bullet {
     this.x = game.player.x + game.player.width * 0.5 - this.width * 0.5;
     this.y = game.player.y - this.height;
     this.speed = 10;
-    this.color = this.game.player.color;
     this.isRemoved = false;
     this.bullets = [];
 
     this.sprite = new Image();
-    this.sprite.src = "./assets/bullet/original/spritesheet.png";
+    this.sprite.src = "./assets/bullet/original/shot.png";
 
     // this.frameX = [0, 1, 2, 3, 4];
     this.frameX = Array.from({ length: 5 }, (_, index) => index);
@@ -35,7 +34,7 @@ export class Bullet {
   render(deltaTime) {
     if (this.game.debug === true) {
       // Bullet
-      this.game.ctx.strokeStyle = this.color;
+      this.game.ctx.strokeStyle = "#fff";
       this.game.ctx.strokeRect(this.x, this.y, this.width, this.height);
 
       // Hitbox
@@ -73,6 +72,8 @@ export class Bullet {
   }
 
   update(deltaTime) {
+    const { explosion } = this.game;
+
     this.bullets.forEach((bullet, index) => {
       bullet.render(deltaTime);
       bullet.y -= bullet.speed;
@@ -88,6 +89,7 @@ export class Bullet {
         if (this.game.collisionDetection(enemy.hitbox, bullet.hitbox)) {
           enemy.takeDamage(1);
           bullet.isRemoved = true;
+          explosion.create({ x: bullet.x, y: bullet.y });
         }
       });
 
@@ -95,6 +97,7 @@ export class Bullet {
         if (this.game.collisionDetection(boss.hitbox, bullet.hitbox)) {
           boss.takeDamage(1);
           bullet.isRemoved = true;
+          explosion.create({ x: bullet.x, y: bullet.y });
         }
       });
 

@@ -5,6 +5,7 @@ import { Boss } from "./boss.js";
 import { Planet } from "./planet.js";
 import { getWaves } from "./waves.js";
 import { Keyboard } from "./keyboard.js";
+import { Explosion } from "./explosion.js";
 
 export class Game {
   constructor() {
@@ -22,14 +23,16 @@ export class Game {
     this.enemy = new Enemy(this);
     this.boss = new Boss(this);
     this.planet = new Planet(this);
+    this.explosion = new Explosion(this);
     this.keyboard = new Keyboard(this);
 
     this.gameObjects = [
       this.planet,
-      this.bullet,
       this.enemy,
-      this.player,
       this.boss,
+      this.bullet,
+      this.explosion,
+      this.player,
     ];
 
     this.bosses = [];
@@ -53,51 +56,6 @@ export class Game {
     this.gameOver = false;
     this.frame = 0;
     this.lastTime = 0;
-
-    // this.musics = [
-    //   {
-    //     title: "The Legend of Zelda: A Link to the Past - Overworld",
-    //     audio: new Audio("./assets/audio/Overworld.ogg"),
-    //     volume: 0.25,
-    //   },
-    //   {
-    //     title: "Ryu's Theme",
-    //     audio: new Audio("./assets/audio/Ryu-Theme.ogg"),
-    //     volume: 0.25,
-    //   },
-    //   {
-    //     title: "Top Gear: Las Vegas",
-    //     audio: new Audio("./assets/audio/Top-Gear-Las-Vegas.ogg"),
-    //     volume: 0.25,
-    //   },
-    //   {
-    //     title: "The King of Fighters 2000: Heroes Team",
-    //     audio: new Audio("./assets/audio/KOF2k-Heroes-Team.ogg"),
-    //     volume: 0.25,
-    //   },
-    //   {
-    //     title: "Theme of Super Metroid",
-    //     audio: new Audio("./assets/audio/Theme-of-Super-Metroid.ogg"),
-    //     volume: 0.35,
-    //   },
-    // ];
-
-    // this.musicsIndex = null;
-    // this.currentMusic = null;
-
-    // this.musics.map((music, i) => {
-    //   music.audio.addEventListener("play", () => {
-    //     console.log(music);
-    //   });
-
-    //   music.audio.addEventListener("ended", () => {
-    //     this.musicsIndex = i < this.musics.length - 1 ? i + 1 : 0;
-    //     this.currentMusic = this.musics.at(this.musicsIndex);
-    //     this.currentMusic.audio.currentTime = 0;
-    //     this.currentMusic.audio.volume = this.currentMusic.volume;
-    //     this.currentMusic.audio.play();
-    //   });
-    // });
 
     this.audio = new Audio();
     this.path = "./assets/audio/wave/";
@@ -292,16 +250,10 @@ export class Game {
     this.background.frameTimer = 0;
 
     this.audio.src = `${this.path}${this.waves.at(this.waveIndex).audio}`;
-    this.audio.volume = 0.3;
+    this.audio.volume = 0.25;
     this.audio.loop = true;
     this.audio.currentTime = 0;
     this.audio.play();
-
-    // this.musicsIndex = Math.floor(Math.random() * this.musics.length);
-    // this.currentMusic = this.musics.at(this.musicsIndex);
-    // this.currentMusic.audio.currentTime = 0;
-    // this.currentMusic.audio.volume = this.currentMusic.volume;
-    // this.currentMusic.audio.play();
 
     this.raf = requestAnimationFrame(this.loop);
   }
