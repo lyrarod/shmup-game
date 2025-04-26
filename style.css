@@ -87,7 +87,6 @@ main {
   padding-block: 0.25rem;
 }
 .hud-item strong {
-  font-size: 1.125rem;
   font-weight: 900;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 }

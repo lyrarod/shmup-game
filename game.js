@@ -12,7 +12,7 @@ export class Game {
     this.canvas = document.getElementById("canvas");
     this.ctx = this.canvas.getContext("2d");
     this.width = this.canvas.width = 768;
-    this.height = this.canvas.height = 1016;
+    this.height = this.canvas.height = 1024;
 
     this.waves = [];
     this.waveIndex = 0;
@@ -42,9 +42,9 @@ export class Game {
       x: 0,
       y: 0,
       width: this.width,
-      height: 1016,
+      height: this.height,
       image: new Image(),
-      speed: 0.75,
+      speed: 1,
     };
     this.background.image.src = "./assets/bg/Stars-Big_1_2_PC.png";
 
@@ -58,7 +58,6 @@ export class Game {
     this.lastTime = 0;
 
     this.audio = new Audio();
-    this.path = "./assets/audio/wave/";
 
     this.scoreHud = document.getElementById("score");
     this.waveHud = document.getElementById("wave");
@@ -103,7 +102,7 @@ export class Game {
     if (
       this.enemies.length === 0 &&
       this.waveIndex < this.waves.length &&
-      this.waves.at(this.waveIndex).enemy["complete"] === false
+      this.waves.at(this.waveIndex)["enemy"].complete === false
     ) {
       this.frame++;
       // console.log("frame:", this.frame);
@@ -118,8 +117,8 @@ export class Game {
       this.bosses.length === 0 &&
       this.waveIndex < this.waves.length &&
       this.waves.at(this.waveIndex).complete === false &&
-      this.waves.at(this.waveIndex).boss["complete"] === false &&
-      this.waves.at(this.waveIndex).enemy["complete"] === true
+      this.waves.at(this.waveIndex)["boss"].complete === false &&
+      this.waves.at(this.waveIndex)["enemy"].complete === true
     ) {
       this.frame++;
       // console.log("frame:", this.frame);
@@ -137,10 +136,7 @@ export class Game {
       this.waveIndex++;
       if (this.waveIndex <= this.waves.length - 1) {
         this.waveHud.innerText = this.waveIndex + 1;
-
-        this.audio.src = `${this.path}${this.waves.at(this.waveIndex).audio}`;
-        this.audio.currentTime = 0;
-        this.audio.play();
+        this.playSound();
       }
     }
 
@@ -212,10 +208,9 @@ export class Game {
       this.background.height
     );
 
-    this.background.y += this.background.speed;
-    if (this.background.y >= this.height) {
-      this.background.y = 0;
-    }
+    this.background.y >= this.height
+      ? (this.background.y = 0)
+      : (this.background.y += this.background.speed);
   }
 
   startWaves() {
@@ -236,6 +231,23 @@ export class Game {
     return new Promise((resolve) => setTimeout(resolve, time));
   }
 
+  playSound() {
+    const path = "./assets/audio/wave/";
+    const file = this.waves.at(this.waveIndex)["audio"].file;
+    let source = `${path}${file}`;
+    const volume = this.waves.at(this.waveIndex)["audio"].volume;
+
+    if (!this.audio.paused) {
+      this.audio.pause();
+      this.audio.currentTime = 0;
+    }
+    this.audio.src = source;
+    this.audio.volume = volume;
+    this.audio.loop = true;
+    this.audio.currentTime = 0;
+    this.audio.play().catch(() => {});
+  }
+
   start() {
     this.running = true;
     this.gameOver = false;
@@ -249,12 +261,7 @@ export class Game {
     this.explosion.explosions = [];
     this.background.y = 0;
     this.background.frameTimer = 0;
-
-    this.audio.src = `${this.path}${this.waves.at(this.waveIndex).audio}`;
-    this.audio.volume = 0.25;
-    this.audio.loop = true;
-    this.audio.currentTime = 0;
-    this.audio.play();
+    this.playSound();
 
     this.raf = requestAnimationFrame(this.loop);
   }

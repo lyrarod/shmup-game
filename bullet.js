@@ -5,7 +5,7 @@ export class Bullet {
     this.height = 128;
     this.x = game.player.x + game.player.width * 0.5 - this.width * 0.5;
     this.y = game.player.y - this.height;
-    this.speed = 10;
+    this.speed = 15;
     this.isRemoved = false;
     this.bullets = [];
 
@@ -25,16 +25,6 @@ export class Bullet {
       x: null,
       y: null,
     };
-
-    this.sounds = {
-      hit: new Audio("./assets/audio/EXPLDsgn_Explosion_Impact_14.wav"),
-    };
-  }
-
-  hitSound() {
-    this.sounds.hit.currentTime = 0;
-    this.sounds.hit.volume = 0.75;
-    this.sounds.hit.play();
   }
 
   addBullet() {
@@ -99,8 +89,7 @@ export class Bullet {
         if (this.game.collisionDetection(enemy.hitbox, bullet.hitbox)) {
           enemy.takeDamage(1);
           bullet.isRemoved = true;
-          explosion.create({ x: bullet.x, y: bullet.y });
-          bullet.hitSound();
+          explosion.show({ x: bullet.x, y: bullet.y });
         }
       });
 
@@ -108,8 +97,7 @@ export class Bullet {
         if (this.game.collisionDetection(boss.hitbox, bullet.hitbox)) {
           boss.takeDamage(1);
           bullet.isRemoved = true;
-          explosion.create({ x: bullet.x, y: bullet.y });
-          bullet.hitSound();
+          explosion.show({ x: bullet.x, y: bullet.y });
         }
       });
 

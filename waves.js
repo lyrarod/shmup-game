@@ -3,7 +3,10 @@ import { Boss, Boss1, Boss2, Boss3, Boss4 } from "./boss.js";
 const waves = [
   {
     id: "wave-01",
-    audio: "overworld.ogg",
+    audio: {
+      file: "overworld.ogg",
+      volume: 0.5,
+    },
     enemy: {
       qty: 3,
       energy: 3,
@@ -25,7 +28,10 @@ const waves = [
   },
   {
     id: "wave-02",
-    audio: "battle-against-machine.mp3",
+    audio: {
+      file: "battle-against-machine.mp3",
+      volume: 1,
+    },
     enemy: {
       qty: 5,
       energy: 5,
@@ -47,7 +53,10 @@ const waves = [
   },
   {
     id: "wave-03",
-    audio: "KOF2k-Heroes-Team.ogg",
+    audio: {
+      file: "KOF2k-Heroes-Team.ogg",
+      volume: 0.3,
+    },
     enemy: {
       qty: 7,
       energy: 7,
@@ -69,7 +78,10 @@ const waves = [
   },
   {
     id: "wave-04",
-    audio: "kraken-of-the-sea.mp3",
+    audio: {
+      file: "kraken-of-the-sea.mp3",
+      volume: 1,
+    },
     enemy: {
       qty: 9,
       energy: 9,
@@ -91,7 +103,10 @@ const waves = [
   },
   {
     id: "wave-05",
-    audio: "Top-Gear-Las-Vegas.ogg",
+    audio: {
+      file: "Top-Gear-Las-Vegas.ogg",
+      volume: 0.5,
+    },
     enemy: {
       qty: 10,
       energy: 10,
@@ -117,8 +132,8 @@ export const getWaves = () => {
   return waves.map((wave) => {
     return {
       ...wave,
-      enemy: { ...wave.enemy, qty: 10, energy: 3, complete: false },
-      boss: { ...wave.boss, energy: 10, complete: false },
+      enemy: { ...wave.enemy, qty: 25, energy: 3, complete: false },
+      boss: { ...wave.boss, energy: 20, complete: false },
       complete: false,
     };
   });

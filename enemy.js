@@ -1,18 +1,15 @@
 export class Enemy {
   constructor(game) {
     this.game = game;
-    this.width = this.game.waves.at(this.game.waveIndex).enemy["sprite"][
-      "width"
-    ];
-    this.height = this.game.waves.at(this.game.waveIndex).enemy["sprite"][
-      "height"
-    ];
+    this.width = this.game.waves.at(this.game.waveIndex)["enemy"].sprite.width;
+    this.height = this.game.waves.at(this.game.waveIndex)[
+      "enemy"
+    ].sprite.height;
     this.x = Math.random() * (this.game.width - this.width);
     this.y = -this.height;
     this.dx = Math.random() < 0.333 ? -0.2 : Math.random() < 0.666 ? 0.2 : 0;
     this.speed = 0.2 + Math.random();
-    this.color = this.game.waves.at(this.game.waveIndex).boss["color"];
-    this.energy = this.game.waves.at(this.game.waveIndex).enemy["energy"];
+    this.energy = this.game.waves.at(this.game.waveIndex)["enemy"].energy;
     this.maxEnergy = this.energy;
     this.hitbox = {
       width: 0,
@@ -21,7 +18,7 @@ export class Enemy {
       y: 0,
     };
 
-    const src = this.game.waves.at(this.game.waveIndex).enemy["sprite"]["src"];
+    const src = this.game.waves.at(this.game.waveIndex)["enemy"].sprite.src;
     this.sprite = new Image();
     this.sprite.src = `./assets/ship/${src}`;
   }
@@ -46,14 +43,14 @@ export class Enemy {
     );
 
     this.game.ctx.fillStyle = "lightgray";
-    this.game.ctx.fillRect(this.x, this.y - 10, this.width, 5);
+    this.game.ctx.fillRect(this.x, this.y - 10, this.width, 7);
 
     this.game.ctx.fillStyle = "#ff0";
     if (this.energy <= this.maxEnergy * 0.1 || this.energy <= 1) {
       this.game.ctx.fillStyle = "#f00";
     }
     for (let i = 0; i < this.energy; i++) {
-      this.game.ctx.fillRect(this.x + i * 3, this.y - 10, 5, 5);
+      this.game.ctx.fillRect(this.x + i * 3, this.y - 10, 5, 7);
     }
 
     if (this.game.debug === true) {

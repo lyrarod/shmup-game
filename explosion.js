@@ -13,19 +13,25 @@ export class Explosion {
       frameY: 0,
       frameTimer: 0,
       frameInterval: 30,
+      sound: new Audio("./assets/audio/EXPLDsgn_Explosion_Impact_14.ogg"),
       isVisible: true,
+      playSound: () => {
+        this.explosion.sound.currentTime = 0;
+        this.explosion.sound.volume = 1;
+        this.explosion.sound.play();
+      },
     };
     this.explosion.sprite.src = "./assets/bullet/original/explosion.png";
 
     this.explosions = [];
-    // console.log(this.explosion.frameX);
   }
 
-  create(position = {}) {
+  show(position = {}) {
     this.explosions.push(new Explosion(this.game, position));
+    this.explosion.playSound();
   }
 
-  render(deltaTime) {
+  drawAndDebug() {
     this.game.ctx.drawImage(
       this.explosion.sprite,
       this.explosion.frameX.at(this.explosion.indexFrameX) *
@@ -39,16 +45,6 @@ export class Explosion {
       this.explosion.height
     );
 
-    if (this.explosion.frameTimer > this.explosion.frameInterval) {
-      this.explosion.indexFrameX++;
-      if (this.explosion.indexFrameX >= this.explosion.frameX.length) {
-        this.isVisible = false;
-      }
-      this.explosion.frameTimer = 0;
-    } else {
-      this.explosion.frameTimer += deltaTime;
-    }
-
     if (this.game.debug === true) {
       this.game.ctx.strokeStyle = "#fff";
       this.game.ctx.strokeRect(
@@ -60,11 +56,25 @@ export class Explosion {
     }
   }
 
-  update(deltaTime) {
-    this.explosions.forEach((explosion, index) => {
-      explosion.render(deltaTime);
+  render(deltaTime) {
+    this.drawAndDebug();
 
-      if (explosion.isVisible === false) {
+    if (this.explosion.frameTimer > this.explosion.frameInterval) {
+      this.explosion.indexFrameX++;
+      if (this.explosion.indexFrameX >= this.explosion.frameX.length) {
+        this.explosion.isVisible = false;
+      }
+      this.explosion.frameTimer = 0;
+    } else {
+      this.explosion.frameTimer += deltaTime;
+    }
+  }
+
+  update(deltaTime) {
+    this.explosions.forEach((obj, index) => {
+      obj.render(deltaTime);
+
+      if (obj.explosion.isVisible === false) {
         this.explosions.splice(index, 1);
       }
       // console.log(this.explosions);

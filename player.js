@@ -63,7 +63,7 @@ export class Player {
     this.game.bullet.addBullet();
 
     this.sounds.shoot.currentTime = 0;
-    this.sounds.shoot.volume = 0.25;
+    this.sounds.shoot.volume = 0.3;
     this.sounds.shoot.play();
   }
 

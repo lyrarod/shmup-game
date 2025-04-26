@@ -51,7 +51,7 @@ export class Planet {
         width: 512,
         height: 512,
         position: {
-          x: Math.random() * (this.game.width - 512 * 0.5),
+          x: this.game.width - 512 * 0.8,
           y: this.game.height - 512 * 0.5,
         },
         frameX: 1,
