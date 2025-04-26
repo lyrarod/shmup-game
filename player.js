@@ -13,11 +13,10 @@ export class Player {
     this.ship.src = "./assets/ship/ship6.png";
 
     this.exhaust = {
-      x: null,
-      y: null,
       width: 256 / 4,
       height: 64,
-      // frameX: [0, 1, 2, 3],
+      x: null,
+      y: null,
       frameX: Array.from({ length: 4 }, (_, index) => index),
       indexFrameX: 0,
       frameY: 0,
@@ -26,12 +25,17 @@ export class Player {
       frameTimer: 0,
       frameInterval: 1000 / 20,
     };
-    // console.log(this.exhaust.frameX);
-
     this.exhaust.sprite.src = "./assets/ship/turbo_flight.png";
 
     this.sounds = {
       shoot: new Audio("./assets/audio/LASRGun_Classic_Blaster_A_Fire_03.ogg"),
+    };
+
+    this.hitBox = {
+      width: 0,
+      height: 0,
+      x: 0,
+      y: 0,
     };
   }
 
@@ -101,6 +105,15 @@ export class Player {
         this.exhaust.width,
         this.exhaust.height
       );
+
+      // Hitbox
+      this.game.ctx.strokeStyle = "#f00";
+      this.game.ctx.strokeRect(
+        this.hitBox.x,
+        this.hitBox.y,
+        this.hitBox.width,
+        this.hitBox.height
+      );
     }
   }
 
@@ -124,6 +137,11 @@ export class Player {
     } else {
       this.exhaust.frameTimer += deltaTime;
     }
+
+    this.hitBox.width = 35;
+    this.hitBox.height = 70;
+    this.hitBox.x = this.x + this.width * 0.5 - 35 * 0.5;
+    this.hitBox.y = this.y + this.height * 0.5 - 70 * 0.5;
 
     if (this.canMove) {
       if (

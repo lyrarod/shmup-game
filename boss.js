@@ -94,7 +94,7 @@ export class Boss {
         this.game.bosses.splice(index, 1);
       }
 
-      if (this.game.collisionDetection(boss.hitbox, this.game.player)) {
+      if (this.game.collisionDetection(boss.hitbox, this.game.player.hitBox)) {
         this.game.player.takeDamage(1);
         return null;
       }

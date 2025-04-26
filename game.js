@@ -234,18 +234,12 @@ export class Game {
   playSound() {
     const path = "./assets/audio/wave/";
     const file = this.waves.at(this.waveIndex)["audio"].file;
-    let source = `${path}${file}`;
+    const source = `${path}${file}`;
     const volume = this.waves.at(this.waveIndex)["audio"].volume;
-
-    if (!this.audio.paused) {
-      this.audio.pause();
-      this.audio.currentTime = 0;
-    }
     this.audio.src = source;
     this.audio.volume = volume;
-    this.audio.loop = true;
     this.audio.currentTime = 0;
-    this.audio.play().catch(() => {});
+    this.audio.play();
   }
 
   start() {
@@ -254,7 +248,7 @@ export class Game {
     this.player.reset();
     this.startHud();
     this.startWaves();
-    this.planet.create();
+    this.planet.show();
     this.bullet.bullets = [];
     this.enemies = [];
     this.bosses = [];

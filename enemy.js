@@ -42,18 +42,10 @@ export class Enemy {
       this.height
     );
 
-    this.game.ctx.fillStyle = "lightgray";
-    this.game.ctx.fillRect(this.x, this.y - 10, this.width, 7);
-
-    this.game.ctx.fillStyle = "#ff0";
-    if (this.energy <= this.maxEnergy * 0.1 || this.energy <= 1) {
-      this.game.ctx.fillStyle = "#f00";
-    }
-    for (let i = 0; i < this.energy; i++) {
-      this.game.ctx.fillRect(this.x + i * 3, this.y - 10, 5, 7);
-    }
-
     if (this.game.debug === true) {
+      this.game.ctx.strokeStyle = "#fff";
+      this.game.ctx.strokeRect(this.x, this.y, this.width, this.height);
+
       this.game.ctx.strokeStyle = "#f00";
       this.game.ctx.strokeRect(
         this.hitbox.x,
@@ -61,6 +53,17 @@ export class Enemy {
         this.hitbox.width,
         this.hitbox.height
       );
+
+      this.game.ctx.fillStyle = "lightgray";
+      this.game.ctx.fillRect(this.x, this.y - 10, this.width, 7);
+
+      this.game.ctx.fillStyle = "#ff0";
+      if (this.energy <= this.maxEnergy * 0.1 || this.energy <= 1) {
+        this.game.ctx.fillStyle = "#f00";
+      }
+      for (let i = 0; i < this.energy; i++) {
+        this.game.ctx.fillRect(this.x + i * 3, this.y - 10, 5, 7);
+      }
     }
   }
 
@@ -70,10 +73,11 @@ export class Enemy {
       enemy.x += enemy.speed * enemy.dx;
       enemy.y += enemy.speed;
 
-      enemy.hitbox.width = enemy.width;
-      enemy.hitbox.height = enemy.width;
-      enemy.hitbox.x = enemy.x;
-      enemy.hitbox.y = enemy.y;
+      enemy.hitbox.width = 20;
+      enemy.hitbox.height = 40;
+      enemy.hitbox.x = enemy.x + enemy.width * 0.5 - enemy.hitbox.width * 0.5;
+      enemy.hitbox.y =
+        enemy.y + enemy.height * 0.5 - enemy.hitbox.height * 0.5 + 10;
 
       if (enemy.x < 0 || enemy.x + enemy.width > this.game.width) {
         enemy.dx *= -1;
@@ -83,7 +87,7 @@ export class Enemy {
         this.game.enemies.splice(index, 1);
       }
 
-      if (this.game.collisionDetection(enemy, this.game.player)) {
+      if (this.game.collisionDetection(enemy, this.game.player.hitBox)) {
         this.game.player.takeDamage(1);
         this.game.enemies.splice(index, 1);
       }

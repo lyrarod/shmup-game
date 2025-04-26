@@ -42,7 +42,7 @@ export class Planet {
     this.planets = [];
   }
 
-  create() {
+  show() {
     this.planets = [];
 
     this.planets.push(
