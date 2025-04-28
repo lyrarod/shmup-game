@@ -1,6 +1,6 @@
 import { Player } from "./player.js";
 import { Bullet } from "./bullet.js";
-import { Enemy } from "./enemy.js";
+import { Enemy, Enemy1 } from "./enemy.js";
 import { Boss } from "./boss.js";
 import { Planet } from "./planet.js";
 import { getWaves } from "./waves.js";
@@ -11,8 +11,8 @@ export class Game {
   constructor() {
     this.canvas = document.getElementById("canvas");
     this.ctx = this.canvas.getContext("2d");
-    this.width = this.canvas.width = 768;
-    this.height = this.canvas.height = 1024;
+    this.width = this.canvas.width = 600;
+    this.height = this.canvas.height = 800;
 
     this.waves = [];
     this.waveIndex = 0;
@@ -177,16 +177,25 @@ export class Game {
   };
 
   async spawnEnemies() {
-    const qty = this.waves.at(this.waveIndex).enemy["qty"];
-    const delay = this.waves.at(this.waveIndex).enemy["delay"];
+    const qty = this.waves.at(this.waveIndex)["enemy"]["qty"];
+    const delay = this.waves.at(this.waveIndex)["enemy"]["delay"];
+
+    const enemyType = this.waves
+      .at(this.waveIndex)
+      ["enemy"]["type"].map((e) => e);
+    // console.log(enemyType);
+
     for (let i = 0; i < qty; i++) {
-      this.enemies.push(new Enemy(this));
+      const enemyRandom =
+        enemyType[Math.floor(Math.random() * enemyType.length)];
+      // console.log(enemyRandom);
+      this.enemies.push(new enemyRandom(this));
       await this.delay(delay);
     }
   }
 
   spawnBoss() {
-    const boss = this.waves.at(this.waveIndex).boss["type"];
+    const boss = this.waves.at(this.waveIndex)["boss"]["type"];
     this.bosses.push(new boss(this));
   }
 
@@ -239,7 +248,7 @@ export class Game {
     this.audio.src = source;
     this.audio.volume = volume;
     this.audio.currentTime = 0;
-    this.audio.play();
+    this.audio.play().catch((error) => console.log(error));
   }
 
   start() {

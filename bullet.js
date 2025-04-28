@@ -5,7 +5,7 @@ export class Bullet {
     this.height = 128;
     this.x = game.player.x + game.player.width * 0.5 - this.width * 0.5;
     this.y = game.player.y - this.height;
-    this.speed = 15;
+    this.speed = 14;
     this.isRemoved = false;
     this.bullets = [];
 

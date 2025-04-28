@@ -87,19 +87,21 @@ export class Boss {
   }
 
   update(deltaTime) {
+    const { bosses, player } = this.game;
+
     this.game.bosses.forEach((boss, index) => {
       boss.render();
 
       if (boss.energy < 1) {
-        this.game.bosses.splice(index, 1);
+        bosses.splice(index, 1);
       }
 
-      if (this.game.collisionDetection(boss.hitbox, this.game.player.hitBox)) {
-        this.game.player.takeDamage(1);
+      if (this.game.collisionDetection(boss.hitbox, player.hitBox)) {
+        player.takeDamage(1);
         return null;
       }
 
-      if (this.game.bosses.length === 0) {
+      if (bosses.length === 0) {
         this.game.waves[this.game.waveIndex].complete = true;
         this.game.waves[this.game.waveIndex].boss["complete"] = true;
         // console.clear();

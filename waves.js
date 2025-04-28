@@ -1,4 +1,5 @@
 import { Boss, Boss1, Boss2, Boss3, Boss4 } from "./boss.js";
+import { Enemy, Enemy1, Enemy2, Enemy3, Enemy4 } from "./enemy.js";
 
 const waves = [
   {
@@ -8,14 +9,10 @@ const waves = [
       volume: 0.5,
     },
     enemy: {
+      type: [Enemy],
       qty: 3,
       energy: 3,
-      sprite: {
-        width: 64,
-        height: 64,
-        src: "Ship1.png",
-      },
-      delay: 1000,
+      delay: 500,
       complete: false,
     },
     boss: {
@@ -33,14 +30,10 @@ const waves = [
       volume: 1,
     },
     enemy: {
+      type: [Enemy, ...Array(2).fill(Enemy1)],
       qty: 5,
       energy: 5,
-      sprite: {
-        width: 128,
-        height: 128,
-        src: "Ship2.png",
-      },
-      delay: 1000,
+      delay: 500,
       complete: false,
     },
     boss: {
@@ -58,14 +51,10 @@ const waves = [
       volume: 0.3,
     },
     enemy: {
+      type: [Enemy, Enemy1, ...Array(2).fill(Enemy2)],
       qty: 7,
       energy: 7,
-      sprite: {
-        width: 128,
-        height: 128,
-        src: "Ship3.png",
-      },
-      delay: 1000,
+      delay: 500,
       complete: false,
     },
     boss: {
@@ -83,14 +72,10 @@ const waves = [
       volume: 1,
     },
     enemy: {
+      type: [Enemy, Enemy1, Enemy2, ...Array(3).fill(Enemy3)],
       qty: 9,
       energy: 9,
-      sprite: {
-        width: 128,
-        height: 128,
-        src: "Ship4.png",
-      },
-      delay: 1000,
+      delay: 500,
       complete: false,
     },
     boss: {
@@ -108,14 +93,10 @@ const waves = [
       volume: 0.5,
     },
     enemy: {
+      type: [Enemy, Enemy1, Enemy2, Enemy3, ...Array(4).fill(Enemy4)],
       qty: 10,
       energy: 10,
-      sprite: {
-        width: 128,
-        height: 128,
-        src: "Ship5.png",
-      },
-      delay: 1000,
+      delay: 500,
       complete: false,
     },
     boss: {
@@ -132,9 +113,15 @@ export const getWaves = () => {
   return waves.map((wave) => {
     return {
       ...wave,
-      audio: { ...wave.audio },
-      enemy: { ...wave.enemy, qty: 50, energy: 3, complete: false },
-      boss: { ...wave.boss, energy: 30, complete: false },
+      audio: { ...wave.audio, volume: 0.25 },
+      enemy: {
+        ...wave.enemy,
+        // type: [Enemy4],
+        qty: 50,
+        energy: 1,
+        complete: false,
+      },
+      boss: { ...wave.boss, energy: 10, complete: false },
       complete: false,
     };
   });
