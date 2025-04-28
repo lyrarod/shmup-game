@@ -138,10 +138,10 @@ export class Player {
       this.exhaust.frameTimer += deltaTime;
     }
 
-    this.hitBox.width = 35;
-    this.hitBox.height = 70;
-    this.hitBox.x = this.x + this.width * 0.5 - 35 * 0.5;
-    this.hitBox.y = this.y + this.height * 0.5 - 70 * 0.5;
+    this.hitBox.width = 40;
+    this.hitBox.height = 90;
+    this.hitBox.x = this.x + this.width * 0.5 - 40 * 0.5;
+    this.hitBox.y = this.y + this.height * 0.5 - 90 * 0.5;
 
     if (this.canMove) {
       if (

@@ -11,7 +11,6 @@ const waves = [
     enemy: {
       type: [Enemy],
       qty: 3,
-      energy: 3,
       delay: 500,
       complete: false,
     },
@@ -32,7 +31,6 @@ const waves = [
     enemy: {
       type: [Enemy, ...Array(2).fill(Enemy1)],
       qty: 5,
-      energy: 5,
       delay: 500,
       complete: false,
     },
@@ -53,7 +51,6 @@ const waves = [
     enemy: {
       type: [Enemy, Enemy1, ...Array(2).fill(Enemy2)],
       qty: 7,
-      energy: 7,
       delay: 500,
       complete: false,
     },
@@ -74,7 +71,6 @@ const waves = [
     enemy: {
       type: [Enemy, Enemy1, Enemy2, ...Array(3).fill(Enemy3)],
       qty: 9,
-      energy: 9,
       delay: 500,
       complete: false,
     },
@@ -95,7 +91,6 @@ const waves = [
     enemy: {
       type: [Enemy, Enemy1, Enemy2, Enemy3, ...Array(4).fill(Enemy4)],
       qty: 10,
-      energy: 10,
       delay: 500,
       complete: false,
     },
@@ -117,8 +112,7 @@ export const getWaves = () => {
       enemy: {
         ...wave.enemy,
         // type: [Enemy4],
-        qty: 50,
-        energy: 1,
+        qty: 25,
         complete: false,
       },
       boss: { ...wave.boss, energy: 10, complete: false },

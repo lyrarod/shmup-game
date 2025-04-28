@@ -8,7 +8,7 @@ export class Enemy {
     this.y = -this.height;
     this.dx = Math.random() < 0.333 ? -0.2 : Math.random() < 0.666 ? 0.2 : 0;
     this.speed = 0.2 + Math.random();
-    this.energy = this.game.waves.at(this.game.waveIndex)["enemy"].energy;
+    this.energy = 1;
     this.maxEnergy = this.energy;
     this.hitbox = {
       width: 0,
@@ -108,9 +108,17 @@ export class Enemy {
     }
   }
 
+  fnHitbox() {
+    this.hitbox.width = 25;
+    this.hitbox.height = 40;
+    this.hitbox.x = this.x + this.width * 0.5 - this.hitbox.width * 0.5;
+    this.hitbox.y = this.y + this.height * 0.5 - this.hitbox.height * 0.5 + 4;
+  }
+
   render(deltaTime) {
-    this.drawAndDebug();
+    this.fnHitbox();
     this.drawExhaust();
+    this.drawAndDebug();
 
     if (this.exhaust.frameTimer > this.exhaust.frameInterval) {
       this.exhaust.indexFrameX++;
@@ -128,12 +136,6 @@ export class Enemy {
       enemy.render(deltaTime);
       enemy.x += enemy.speed * enemy.dx;
       enemy.y += enemy.speed;
-
-      enemy.hitbox.width = 25;
-      enemy.hitbox.height = 40;
-      enemy.hitbox.x = enemy.x + enemy.width * 0.5 - enemy.hitbox.width * 0.5;
-      enemy.hitbox.y =
-        enemy.y + enemy.height * 0.5 - enemy.hitbox.height * 0.5 + 4;
 
       if (enemy.x < 0 || enemy.x + enemy.width > this.game.width) {
         enemy.dx *= -1;
@@ -167,7 +169,10 @@ export class Enemy1 extends Enemy {
     this.x = Math.random() * (this.game.width - this.width);
     this.y = -this.height;
     this.speed = 0.21 + Math.random();
+    this.energy = 2;
+    this.maxEnergy = this.energy;
     this.sprite.src = `./assets/ship/Ship2.png`;
+    this.exhaust.sprite.src = `./assets/ship/ship2_exhaust.png`;
   }
 
   takeDamage(damage) {
@@ -175,7 +180,6 @@ export class Enemy1 extends Enemy {
   }
 
   drawExhaust() {
-    this.exhaust.sprite.src = `./assets/ship/ship2_exhaust.png`;
     this.exhaust.x = this.x + this.width * 0.5 - this.exhaust.width * 0.5;
     this.exhaust.y = this.y - this.exhaust.height * 0.1;
 
@@ -209,7 +213,10 @@ export class Enemy2 extends Enemy1 {
   constructor(game) {
     super(game);
     this.speed = 0.22 + Math.random();
+    this.energy = 3;
+    this.maxEnergy = this.energy;
     this.sprite.src = `./assets/ship/Ship3.png`;
+    this.exhaust.sprite.src = `./assets/ship/ship3_exhaust.png`;
   }
 
   takeDamage(damage) {
@@ -217,7 +224,6 @@ export class Enemy2 extends Enemy1 {
   }
 
   drawExhaust() {
-    this.exhaust.sprite.src = `./assets/ship/ship3_exhaust.png`;
     this.exhaust.x = this.x + this.width * 0.5 - this.exhaust.width * 0.5;
     this.exhaust.y = this.y - this.exhaust.height * 0.2;
 
@@ -251,7 +257,10 @@ export class Enemy3 extends Enemy1 {
   constructor(game) {
     super(game);
     this.speed = 0.23 + Math.random();
+    this.energy = 4;
+    this.maxEnergy = this.energy;
     this.sprite.src = `./assets/ship/Ship4.png`;
+    this.exhaust.sprite.src = `./assets/ship/ship4_exhaust.png`;
   }
 
   takeDamage(damage) {
@@ -259,7 +268,6 @@ export class Enemy3 extends Enemy1 {
   }
 
   drawExhaust() {
-    this.exhaust.sprite.src = `./assets/ship/ship4_exhaust.png`;
     this.exhaust.x = this.x + this.width * 0.5 - this.exhaust.width * 0.55;
     this.exhaust.y = this.y - this.exhaust.height * 0.5;
 
@@ -274,6 +282,13 @@ export class Enemy3 extends Enemy1 {
       this.exhaust.width,
       this.exhaust.height
     );
+  }
+
+  fnHitbox() {
+    this.hitbox.width = 30;
+    this.hitbox.height = 60;
+    this.hitbox.x = this.x + this.width * 0.5 - this.hitbox.width * 0.5;
+    this.hitbox.y = this.y + this.height * 0.5 - this.hitbox.height * 0.5;
   }
 
   drawAndDebug() {
@@ -293,7 +308,10 @@ export class Enemy4 extends Enemy1 {
   constructor(game) {
     super(game);
     this.speed = 0.24 + Math.random();
+    this.energy = 5;
+    this.maxEnergy = this.energy;
     this.sprite.src = `./assets/ship/Ship5.png`;
+    this.exhaust.sprite.src = `./assets/ship/ship5_exhaust.png`;
   }
 
   takeDamage(damage) {
@@ -301,7 +319,6 @@ export class Enemy4 extends Enemy1 {
   }
 
   drawExhaust() {
-    this.exhaust.sprite.src = `./assets/ship/ship5_exhaust.png`;
     this.exhaust.x = this.x + this.width * 0.5 - this.exhaust.width * 0.72;
     this.exhaust.y = this.y - this.exhaust.height * 0.6;
 
@@ -316,6 +333,13 @@ export class Enemy4 extends Enemy1 {
       this.exhaust.width,
       this.exhaust.height
     );
+  }
+
+  fnHitbox() {
+    this.hitbox.width = 35;
+    this.hitbox.height = 70;
+    this.hitbox.x = this.x + this.width * 0.5 - this.hitbox.width * 0.5 - 5;
+    this.hitbox.y = this.y + this.height * 0.5 - this.hitbox.height * 0.5;
   }
 
   drawAndDebug() {
