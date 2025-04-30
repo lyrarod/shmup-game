@@ -6,7 +6,7 @@ export class Enemy {
     this.height = this.size;
     this.x = Math.random() * (this.game.width - this.width);
     this.y = -this.height;
-    this.dx = Math.random() < 0.333 ? -0.2 : Math.random() < 0.666 ? 0.2 : 0;
+    this.dx = Math.random() < 0.33 ? -0.2 : Math.random() < 0.66 ? 0.2 : 0;
     this.speed = 0.2 + Math.random();
     this.energy = 1;
     this.maxEnergy = this.energy;
@@ -46,6 +46,21 @@ export class Enemy {
     }
   }
 
+  drawEnemy() {
+    this.game.ctx.drawImage(
+      this.sprite,
+      this.x,
+      this.y,
+      this.width,
+      this.height
+    );
+
+    this.y += this.speed;
+    this.x += this.speed * this.dx;
+
+    this.drawExhaust();
+  }
+
   drawExhaust() {
     this.exhaust.x = this.x + this.width * 0.5 - this.exhaust.width * 0.5;
     this.exhaust.y = this.y - this.exhaust.height * 0.82;
@@ -63,15 +78,7 @@ export class Enemy {
     );
   }
 
-  drawAndDebug() {
-    this.game.ctx.drawImage(
-      this.sprite,
-      this.x,
-      this.y,
-      this.width,
-      this.height
-    );
-
+  enemyDebug() {
     if (this.game.debug === true) {
       // Enemy
       this.game.ctx.strokeStyle = "#fff";
@@ -108,7 +115,7 @@ export class Enemy {
     }
   }
 
-  fnHitbox() {
+  enemyHitbox() {
     this.hitbox.width = 25;
     this.hitbox.height = 40;
     this.hitbox.x = this.x + this.width * 0.5 - this.hitbox.width * 0.5;
@@ -116,9 +123,9 @@ export class Enemy {
   }
 
   render(deltaTime) {
-    this.fnHitbox();
-    this.drawExhaust();
-    this.drawAndDebug();
+    this.drawEnemy();
+    this.enemyHitbox();
+    this.enemyDebug();
 
     if (this.exhaust.frameTimer > this.exhaust.frameInterval) {
       this.exhaust.indexFrameX++;
@@ -132,29 +139,39 @@ export class Enemy {
   }
 
   update(deltaTime) {
-    this.game.enemies.forEach((enemy, index) => {
-      enemy.render(deltaTime);
-      enemy.x += enemy.speed * enemy.dx;
-      enemy.y += enemy.speed;
+    const { enemies, player, collisionDetection, waves, waveIndex } = this.game;
 
-      if (enemy.x < 0 || enemy.x + enemy.width > this.game.width) {
+    enemies.forEach((enemy, index) => {
+      enemy.render(deltaTime);
+
+      if (
+        enemy.hitbox.x < 0 ||
+        enemy.hitbox.x + enemy.hitbox.width > this.game.width
+      ) {
         enemy.dx *= -1;
       }
 
-      if (enemy.energy < 1 || enemy.y > this.game.height) {
-        this.game.enemies.splice(index, 1);
+      if (enemy.y > this.game.height) {
+        enemy.y = -enemy.height;
+        enemy.x = Math.random() * (this.game.width - enemy.width);
+        enemy.dx === 0 ? (enemy.dx = Math.random() < 0.5 ? -1 : 1) : null;
+        enemy.dx *=
+          Math.random() < 0.33 ? -0.25 : Math.random() < 0.66 ? 0.25 : 0;
+        enemy.speed += 0.1;
       }
 
-      if (this.game.collisionDetection(enemy.hitbox, this.game.player.hitBox)) {
-        this.game.player.takeDamage(1);
-        this.game.enemies.splice(index, 1);
+      if (collisionDetection(enemy.hitbox, player.hitBox)) {
+        player.takeDamage(1);
+        enemies.splice(index, 1);
       }
 
-      // console.log(this.enemies);
+      if (enemy.energy < 1) {
+        enemies.splice(index, 1);
+      }
+      // console.log(enemies);
 
-      if (this.game.enemies.length === 0) {
-        this.game.waves[this.game.waveIndex].enemy["complete"] = true;
-        // console.clear();
+      if (enemies.length === 0) {
+        waves[waveIndex].enemy.complete = true;
       }
     });
   }
@@ -194,10 +211,6 @@ export class Enemy1 extends Enemy {
       this.exhaust.width,
       this.exhaust.height
     );
-  }
-
-  drawAndDebug() {
-    super.drawAndDebug();
   }
 
   render(deltaTime) {
@@ -240,10 +253,6 @@ export class Enemy2 extends Enemy1 {
     );
   }
 
-  drawAndDebug() {
-    super.drawAndDebug();
-  }
-
   render(deltaTime) {
     super.render(deltaTime);
   }
@@ -284,15 +293,11 @@ export class Enemy3 extends Enemy1 {
     );
   }
 
-  fnHitbox() {
+  enemyHitbox() {
     this.hitbox.width = 30;
     this.hitbox.height = 60;
     this.hitbox.x = this.x + this.width * 0.5 - this.hitbox.width * 0.5;
     this.hitbox.y = this.y + this.height * 0.5 - this.hitbox.height * 0.5;
-  }
-
-  drawAndDebug() {
-    super.drawAndDebug();
   }
 
   render(deltaTime) {
@@ -335,15 +340,11 @@ export class Enemy4 extends Enemy1 {
     );
   }
 
-  fnHitbox() {
+  enemyHitbox() {
     this.hitbox.width = 35;
     this.hitbox.height = 70;
     this.hitbox.x = this.x + this.width * 0.5 - this.hitbox.width * 0.5 - 5;
     this.hitbox.y = this.y + this.height * 0.5 - this.hitbox.height * 0.5;
-  }
-
-  drawAndDebug() {
-    super.drawAndDebug();
   }
 
   render(deltaTime) {

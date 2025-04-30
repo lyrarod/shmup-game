@@ -112,7 +112,7 @@ export const getWaves = () => {
       enemy: {
         ...wave.enemy,
         // type: [Enemy4],
-        qty: 25,
+        qty: 100,
         complete: false,
       },
       boss: { ...wave.boss, energy: 10, complete: false },

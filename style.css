@@ -60,7 +60,7 @@ main {
 
 #startBtn {
   padding: 1rem 2rem;
-  border: none;
+  border: 1px solid white;
   border-radius: 999px;
   background: linear-gradient(to left, #0f0c29, #302b63, #24243e);
   color: white;

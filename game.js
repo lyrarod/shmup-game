@@ -190,6 +190,7 @@ export class Game {
         enemyType[Math.floor(Math.random() * enemyType.length)];
       // console.log(enemyRandom);
       this.enemies.push(new enemyRandom(this));
+      // this.enemies.push(new enemyType[i](this));
       await this.delay(delay);
     }
   }

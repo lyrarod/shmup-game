@@ -6,13 +6,12 @@ export class Bullet {
     this.x = game.player.x + game.player.width * 0.5 - this.width * 0.5;
     this.y = game.player.y - this.height;
     this.speed = 14;
-    this.isRemoved = false;
+    this.canRemove = false;
     this.bullets = [];
 
     this.sprite = new Image();
     this.sprite.src = "./assets/bullet/original/shot.png";
 
-    // this.frameX = [0, 1, 2, 3, 4];
     this.frameX = Array.from({ length: 5 }, (_, index) => index);
     this.indexFrameX = 0;
     this.frameY = 0;
@@ -22,8 +21,8 @@ export class Bullet {
     this.hitbox = {
       width: 0,
       height: 0,
-      x: null,
-      y: null,
+      x: 0,
+      y: 0,
     };
   }
 
@@ -31,7 +30,26 @@ export class Bullet {
     this.bullets.push(new Bullet(this.game));
   }
 
-  render(deltaTime) {
+  bulletHitbox() {
+    this.hitbox.width = 12;
+    this.hitbox.height = 70;
+    this.hitbox.x = this.x + this.width * 0.5 - this.hitbox.width * 0.65;
+    this.hitbox.y = this.y + this.height * 0.5 - this.hitbox.height * 0.1;
+  }
+
+  bulletFrame(deltaTime) {
+    if (this.frameTimer > this.frameInterval) {
+      this.indexFrameX++;
+      if (this.indexFrameX >= this.frameX.length) {
+        this.indexFrameX = this.frameX.at(-1);
+      }
+      this.frameTimer = 0;
+    } else {
+      this.frameTimer += deltaTime;
+    }
+  }
+
+  render() {
     if (this.game.debug === true) {
       // Bullet
       this.game.ctx.strokeStyle = "#fff";
@@ -59,49 +77,34 @@ export class Bullet {
       this.height
     );
 
-    if (this.frameTimer > this.frameInterval) {
-      this.indexFrameX++;
-      if (this.indexFrameX >= this.frameX.length) {
-        this.indexFrameX = this.frameX.at(-1);
-      }
-
-      this.frameTimer = 0;
-    } else {
-      this.frameTimer += deltaTime;
-    }
+    this.y -= this.speed;
   }
 
   update(deltaTime) {
-    const { explosion } = this.game;
+    const { enemies, bosses, collisionDetection, explosion } = this.game;
 
     this.bullets.forEach((bullet, index) => {
-      bullet.render(deltaTime);
-      bullet.y -= bullet.speed;
+      bullet.render();
+      bullet.bulletHitbox();
+      bullet.bulletFrame(deltaTime);
 
-      bullet.hitbox.width = 12;
-      bullet.hitbox.height = 70;
-      bullet.hitbox.x =
-        bullet.x + bullet.width * 0.5 - bullet.hitbox.width * 0.65;
-      bullet.hitbox.y =
-        bullet.y + bullet.height * 0.5 - bullet.hitbox.height * 0.1;
-
-      this.game.enemies.forEach((enemy) => {
-        if (this.game.collisionDetection(enemy.hitbox, bullet.hitbox)) {
+      enemies.forEach((enemy) => {
+        if (collisionDetection(enemy.hitbox, bullet.hitbox)) {
           enemy.takeDamage(1);
-          bullet.isRemoved = true;
+          bullet.canRemove = true;
           explosion.show({ x: bullet.x, y: bullet.y });
         }
       });
 
-      this.game.bosses.forEach((boss) => {
-        if (this.game.collisionDetection(boss.hitbox, bullet.hitbox)) {
+      bosses.forEach((boss) => {
+        if (collisionDetection(boss.hitbox, bullet.hitbox)) {
           boss.takeDamage(1);
-          bullet.isRemoved = true;
+          bullet.canRemove = true;
           explosion.show({ x: bullet.x, y: bullet.y });
         }
       });
 
-      if (bullet.y < -bullet.height || bullet.isRemoved) {
+      if (bullet.y < -bullet.height || bullet.canRemove) {
         this.bullets.splice(index, 1);
       }
       // console.log(this.bullets);
